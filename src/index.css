@@ -51,6 +51,11 @@ div.messageList {
   grid-row: 1;
 }
 
+.message > .createdAt {
+  grid-column: 3;
+  grid-row: 1;
+}
+
 .message > .like {
   grid-column: 3;
   grid-row: 2;
