@@ -82,3 +82,11 @@ div.header h3 {
   margin: 0;
 }
 
+#inputMessage {
+  margin-top: 10px;
+}
+
+#inputMessage textarea {
+  resize: none !important;
+}
+
