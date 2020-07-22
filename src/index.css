@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.chat {
+  width: 1000px;
+  display: flex;
+  /*justify-content: center;*/
+}
+
+.message {
+  border-radius: 20px !important;
+  margin: 5px !important;
+}
+
+.message .image {
+  margin-right: 10px !important;
+}
+
+.messageList {
+  height: 60%;
+  border: 1px solid black;
+  border-radius: 20px;
+  background: #B9BBBD;
+  overflow-y: scroll;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
