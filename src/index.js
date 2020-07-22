@@ -21,7 +21,11 @@ import Chat from "./container/Chat";
 })();
 
 
+export const currentUser = {
+  userId: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+  user: "Zhenya"
+};
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();
