@@ -7,7 +7,7 @@ class Chat extends React.Component {
     render() {
         return (
             <div className="chat">
-              <Header />
+              <Header messages={this.props.messages} />
               <MessageList messages={this.props.messages} />
               <MessageInput />
             </div>
