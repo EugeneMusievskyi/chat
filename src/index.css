@@ -29,6 +29,7 @@ div.messageList {
   border-radius: 5px;
   background: #B9BBBD;
   overflow-y: scroll;
+  padding: 5px;
 }
 
 .message {
@@ -63,5 +64,9 @@ div.messageList {
 
 .message > .like:hover {
   color: red;
+}
+
+h5.divider {
+  margin-top: 10px !important;
 }
 
