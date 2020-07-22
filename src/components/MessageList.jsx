@@ -7,15 +7,30 @@ class MessageList extends React.Component {
         this.state = { messages: props.messages }
     }
 
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
+    scrollToBottom = () => {
+        this.messagesEndRef.scrollIntoView({ behavior: 'smooth' });
+    };
+
+
+
     render() {
         return (
-            <div className="messageList">
+            <div className="messageList" onLoad={() => this.scrollToBottom}>
                 {this.state.messages.map(message => (
                     <Message message={message} />
-                ))}
+                    ))}
+                <div ref={messagesEndRef => { this.messagesEndRef = messagesEndRef }} />
             </div>
         );
     }
 }
 
-export default MessageList
+export default MessageList;
