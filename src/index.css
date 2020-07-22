@@ -49,15 +49,14 @@ div.messageList {
 .message  .content {
   grid-column: 2;
   grid-row: 1;
-  align-self: self-start !important;
 }
 
-.like {
+.message > .like {
   grid-column: 3;
   grid-row: 2;
 }
 
-.like:hover {
+.message > .like:hover {
   color: red;
 }
 
