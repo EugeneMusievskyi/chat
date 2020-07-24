@@ -2,13 +2,8 @@ import React from "react";
 import moment from "moment";
 
 class Header extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { messages: props.messages }
-    }
-
     render() {
-        const messages = this.state.messages;
+        const messages = this.props.messages;
         return (
             <div className="ui block header">
              <h3>My Chat</h3>
