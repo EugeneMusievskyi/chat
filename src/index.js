@@ -14,7 +14,7 @@ import {func} from "prop-types";
 
     const response = await fetch("https://edikdolynskyi.github.io/react_sources/messages.json");
     let initialMessages;
-    if (!response.ok) {
+    if (response.ok) {
         initialMessages = await response.json();
     } else {
         initialMessages = require("./messages.json");
