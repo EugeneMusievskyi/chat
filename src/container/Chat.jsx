@@ -9,8 +9,9 @@ import moment from "moment";
 class Chat extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {messages: props.messages};
+        this.state = { messages: props.messages };
         this.addMessage = this.addMessage.bind(this);
+        this.updateMessage = this.updateMessage.bind(this);
         this.deleteMessage = this.deleteMessage.bind(this);
     }
 
@@ -34,13 +35,18 @@ class Chat extends React.Component {
         this.setState({ ...this.state, messages: updatedMessages });
     }
 
+    updateMessage(message) {
+        const updatedMessages = this.state.messages.map(m => m.id === message.id ? message : m);
+        this.setState({ ...this.state, messages: updatedMessages });
+    }
+
     render() {
         const messages = this.state.messages;
 
         return (
             <div className="chat">
               <Header messages={messages} />
-              <MessageList messages={messages} onDeleteMessage={this.deleteMessage} />
+              <MessageList messages={messages} updateMessage={this.updateMessage} deleteMessage={this.deleteMessage} />
               <MessageInput addMessage={this.addMessage} />
             </div>
         );

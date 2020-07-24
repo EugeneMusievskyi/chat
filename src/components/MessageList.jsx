@@ -8,7 +8,6 @@ import UserMessage from "./UserMessage";
 class MessageList extends React.Component {
     constructor(props) {
         super(props);
-        this.handleDeleteMessage = this.handleDeleteMessage.bind(this);
     }
 
     componentDidMount() {
@@ -23,10 +22,6 @@ class MessageList extends React.Component {
         this.messagesEndRef.scrollIntoView({behavior: 'smooth'});
     };
 
-    handleDeleteMessage(message) {
-        this.props.onDeleteMessage(message);
-    }
-
     mapMessages = (messages) => {
         let previousDate;
 
@@ -39,7 +34,10 @@ class MessageList extends React.Component {
             }
 
             const mappedMessage = currentUser.userId === message.userId ?
-                <UserMessage message={message} onDeleteMessage={this.handleDeleteMessage} />
+                <UserMessage message={message}
+                             onUpdateMessage={this.props.updateMessage}
+                             onDeleteMessage={this.props.deleteMessage}
+                />
                 : <Message message={message} />;
 
             return (

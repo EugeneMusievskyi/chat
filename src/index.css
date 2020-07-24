@@ -107,3 +107,7 @@ div.header h3 {
   resize: none !important;
 }
 
+.updateMessageInput {
+  width: 100%;
+}
+
