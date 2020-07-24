@@ -6,9 +6,13 @@ import {currentUser} from "../index";
 import UserMessage from "./UserMessage";
 
 class MessageList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleDeleteMessage = this.handleDeleteMessage.bind(this);
+    }
+
     componentDidMount() {
         this.scrollToBottom();
-        this.mapMessages = this.mapMessages.bind(this);
     }
 
     componentDidUpdate() {
@@ -18,6 +22,10 @@ class MessageList extends React.Component {
     scrollToBottom = () => {
         this.messagesEndRef.scrollIntoView({behavior: 'smooth'});
     };
+
+    handleDeleteMessage(message) {
+        this.props.onDeleteMessage(message);
+    }
 
     mapMessages = (messages) => {
         let previousDate;
@@ -31,7 +39,7 @@ class MessageList extends React.Component {
             }
 
             const mappedMessage = currentUser.userId === message.userId ?
-                <UserMessage message={message} deleteMessage={(m) => this.props.deleteMessage(m)} />
+                <UserMessage message={message} onDeleteMessage={this.handleDeleteMessage} />
                 : <Message message={message} />;
 
             return (
@@ -47,7 +55,7 @@ class MessageList extends React.Component {
     render() {
         return (
             <div className="messageList" onLoad={() => this.scrollToBottom}>
-                {this.mapMessages(this.state.messages)}
+                {this.mapMessages(this.props.messages)}
                 <div ref={messagesEndRef => {
                     this.messagesEndRef = messagesEndRef
                 }} />

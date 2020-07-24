@@ -5,12 +5,13 @@ import MessageInput from "../components/MessageInput";
 import {v4 as uuidv4} from 'uuid';
 import {currentUser} from "../index";
 import moment from "moment";
-import ReactDOM from 'react-dom';
 
 class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {messages: props.messages};
+        this.addMessage = this.addMessage.bind(this);
+        this.deleteMessage = this.deleteMessage.bind(this);
     }
 
     addMessage(messageText) {
@@ -28,12 +29,19 @@ class Chat extends React.Component {
         this.setState({...this.state, messages: messages});
     };
 
+    deleteMessage(message) {
+        const updatedMessages = this.state.messages.filter(m => m.id !== message.id);
+        this.setState({ ...this.state, messages: updatedMessages });
+    }
+
     render() {
+        const messages = this.state.messages;
+
         return (
             <div className="chat">
-              <Header messages={this.props.messages} />
-              <MessageList messages={this.props.messages} deleteMessage={() => this.deleteMessage} />
-              <MessageInput addMessage={m => this.addMessage(m)} />
+              <Header messages={messages} />
+              <MessageList messages={messages} onDeleteMessage={this.deleteMessage} />
+              <MessageInput addMessage={this.addMessage} />
             </div>
         );
     }
