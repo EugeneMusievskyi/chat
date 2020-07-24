@@ -2,10 +2,6 @@ import React from "react";
 import moment from 'moment';
 
 class Message extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const createdAt = moment(this.props.message.createdAt).utc();
         const time = createdAt !== undefined ? createdAt.format("HH:mm") : null;

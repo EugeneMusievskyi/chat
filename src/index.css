@@ -66,6 +66,23 @@ div.messageList {
   color: red;
 }
 
+.currentUserMessage {
+  float: right !important;
+  /*min-height: 5em !important;*/
+  display: grid;
+  grid-template-columns: 20% 70% 10%;
+  grid-template-rows: 50% 50%;
+}
+
+.currentUserMessage .item {
+    margin: 6px 0;
+}
+
+.currentUserMessage .item:hover {
+  background: #D4D4D4;
+  cursor: pointer;
+}
+
 h5.divider {
   margin-top: 10px !important;
 }
