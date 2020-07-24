@@ -13,6 +13,9 @@ class UpdateMessageInput extends React.Component {
     }
 
     handleUpdateMessage() {
+        if (!this.state.body)
+            return;
+
         this.props.onUpdateMessage(this.state.body);
     }
 

@@ -39,6 +39,7 @@ div.messageList {
   display: grid;
   grid-template-columns: 20% 70% 10%;
   grid-template-rows: 80% 20%;
+  overflow-x: hidden;
 }
 
 .message .image {
@@ -72,7 +73,6 @@ div.messageList {
 
 .currentUserMessage {
   float: right !important;
-  /*min-height: 5em !important;*/
   display: grid;
   grid-template-columns: 20% 70% 10%;
   grid-template-rows: 50% 50%;
