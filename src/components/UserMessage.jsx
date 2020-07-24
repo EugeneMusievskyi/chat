@@ -20,7 +20,8 @@ class UserMessage extends React.Component {
     }
 
     handleUpdateMessage(text) {
-        const message = { ...this.props.message, text};
+        const updatedAt = moment().utc().add(3, "hours");
+        const message = { ...this.props.message, text, updatedAt};
         this.props.onUpdateMessage(message);
         this.setEditMessage();
     }

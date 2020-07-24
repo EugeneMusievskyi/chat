@@ -2,9 +2,20 @@ import React from "react";
 import moment from 'moment';
 
 class Message extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {isLiked: false};
+        this.setIsLiked = this.setIsLiked.bind(this);
+    }
+
+    setIsLiked() {
+        this.setState({...this.state, isLiked: !this.state.isLiked});
+    }
+
     render() {
         const createdAt = moment(this.props.message.createdAt).utc();
         const time = createdAt !== undefined ? createdAt.format("HH:mm") : null;
+        const liked = this.state.isLiked ? "liked" : "";
 
         return (
             <div className="ui message">
@@ -15,7 +26,9 @@ class Message extends React.Component {
               <div className="content">
                   {this.props.message.text}
               </div>
-              <i className="like icon" />
+                <div className={"like " + liked} onClick={() => this.setIsLiked()}>
+                    <i className="like icon" />
+                </div>
             </div>
         );
     }

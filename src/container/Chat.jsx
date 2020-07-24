@@ -40,6 +40,10 @@ class Chat extends React.Component {
         this.setState({ ...this.state, messages: updatedMessages });
     }
 
+    /*likeMessage(message) {
+        const updatedMessages = this.state.messages.map(m => m.id === message.id ? message : m);
+    }*/
+
     render() {
         const messages = this.state.messages;
 

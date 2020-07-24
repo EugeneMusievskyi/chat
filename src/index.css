@@ -57,9 +57,13 @@ div.messageList {
   grid-row: 1;
 }
 
-.message > .like {
+.message .like {
   grid-column: 3;
   grid-row: 2;
+}
+
+.liked .icon {
+  color: red;
 }
 
 .message > .like:hover {
