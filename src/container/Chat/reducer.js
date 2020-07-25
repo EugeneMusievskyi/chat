@@ -1,7 +1,13 @@
-import {ADD_MESSAGE, DELETE_MESSAGE, SET_EDITED_MESSAGE, EDIT_MESSAGE} from "./actionTypes";
+import {ADD_MESSAGE, DELETE_MESSAGE, SET_EDITED_MESSAGE, EDIT_MESSAGE, LOAD_MESSAGES} from "./actionTypes";
 
 export default function (state = {}, action) {
     switch (action.type) {
+        case LOAD_MESSAGES: {
+            return {
+                ...state,
+                messages: action.messages
+            }
+        }
         case ADD_MESSAGE: {
             return {
                 ...state,

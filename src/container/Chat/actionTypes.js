@@ -2,3 +2,4 @@ export const ADD_MESSAGE = "ADD_MESSAGE";
 export const EDIT_MESSAGE = "EDIT_MESSAGE";
 export const DELETE_MESSAGE = "DELETE_MESSAGE";
 export const SET_EDITED_MESSAGE = "SET_EDITED_MESSAGE";
+export const LOAD_MESSAGES = "LOAD_MESSAGES";

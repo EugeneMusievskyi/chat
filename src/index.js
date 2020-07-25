@@ -2,21 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import Chat from "./container/Chat/Chat";
 import Loader from "./components/Loader";
-import {Provider} from "react-redux"
 import store from "./store";
-import EditedMessage from "./components/EditedMessage";
 
 ReactDOM.render(
     <Loader />,
-    document.getElementById('root')
-);
-
-ReactDOM.render(
-    <Provider store={store}>
-        <Chat />
-    </Provider>,
     document.getElementById('root')
 );
 
