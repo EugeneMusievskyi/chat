@@ -51,7 +51,8 @@ class Chat extends React.Component {
               <Header messages={messages} />
               <MessageList messages={messages} setEditedMessage={this.setEditedMessage} deleteMessage={this.handleDeleteMessage} />
               <MessageInput addMessage={this.handleAddMessage} />
-              {editedMessage && <EditedMessage updateMessage={this.handleUpdateMessage} />}
+              {editedMessage && <EditedMessage message={editedMessage} updateMessage={this.handleUpdateMessage}
+                    setEditedMessage={this.setEditedMessage} />}
             </div>
         );
     }
