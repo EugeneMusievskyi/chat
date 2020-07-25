@@ -15,6 +15,7 @@ class Chat extends React.Component {
         this.handleEditMessage = this.handleEditMessage.bind(this);
         this.handleDeleteMessage = this.handleDeleteMessage.bind(this);
         this.setEditedMessage = this.setEditedMessage.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     handleAddMessage(messageText) {
@@ -42,14 +43,28 @@ class Chat extends React.Component {
         this.props.setEditedMessage(message);
     }
 
+    handleKeyPress(e) {
+        if (e.key === "ArrowUp") {
+            const messages = this.props.messages;
+            let lastMessage = null;
+            for (let i = messages.length - 1; i >= 0; i--) {
+                if (messages[i].userId === this.props.profile.userId) {
+                    lastMessage = messages[i];
+                    break;
+                }
+            }
+            this.props.setEditedMessage(lastMessage);
+        }
+    };
+
     render() {
         const messages = this.props.messages;
         const editedMessage = this.props.editedMessage;
 
         return (
-            <div className="chat">
+            <div className="chat" onKeyDown={this.handleKeyPress}>
               <Header messages={messages} />
-              <MessageList messages={messages} setEditedMessage={this.setEditedMessage} deleteMessage={this.handleDeleteMessage} />
+              <MessageList messages={messages} setEditedMessage={this.setEditedMessage} deleteMessage={this.handleDeleteMessage} keyDown={this.handleKeyPress} />
               <MessageInput addMessage={this.handleAddMessage} />
               {editedMessage && <EditedMessage message={editedMessage} editMessage={this.handleEditMessage}
                     setEditedMessage={this.setEditedMessage} />}
