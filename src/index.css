@@ -115,3 +115,14 @@ div.header h3 {
   width: 100%;
 }
 
+/* --------------------------------------*/
+
+.ui.modals.active {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.ui.modal {
+
+}

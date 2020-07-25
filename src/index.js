@@ -6,6 +6,7 @@ import Chat from "./container/Chat/Chat";
 import Loader from "./components/Loader";
 import {Provider} from "react-redux"
 import store from "./store";
+import EditedMessage from "./components/EditedMessage";
 
 ReactDOM.render(
     <Loader />,

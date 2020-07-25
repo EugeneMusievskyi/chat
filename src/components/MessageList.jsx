@@ -31,7 +31,7 @@ class MessageList extends React.Component {
 
             const mappedMessage = this.props.profile.userId === message.userId ?
                 <UserMessage message={message}
-                             onUpdateMessage={this.props.updateMessage}
+                             onEditMessage={this.props.setEditedMessage}
                              onDeleteMessage={this.props.deleteMessage}
                 />
                 : <Message message={message} />;

@@ -1,4 +1,4 @@
-import {ADD_MESSAGE, DELETE_MESSAGE, UPDATE_MESSAGE} from "./actionTypes";
+import {ADD_MESSAGE, DELETE_MESSAGE, SET_EDITED_MESSAGE, UPDATE_MESSAGE} from "./actionTypes";
 
 // const initialState = { messages: require("../../messages") };
 
@@ -20,6 +20,12 @@ export default function (state = {}, action) {
             return {
                 ...state,
                 messages: state.messages.filter(m => m.id !== action.message.id)
+            }
+        }
+        case SET_EDITED_MESSAGE: {
+            return {
+                ...state,
+                editedMessage: action.message
             }
         }
         default:

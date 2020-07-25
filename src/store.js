@@ -9,7 +9,8 @@ const currentUser = {
 const initialState = {
     chat : {
         messages: require("./messages.json"),
-        profile: currentUser
+        profile: currentUser,
+        editedMessage: null
     }
 };
 

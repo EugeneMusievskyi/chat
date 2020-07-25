@@ -6,6 +6,7 @@ import * as actions from "./actions";
 import {connect} from "react-redux";
 import {v4 as uuidv4} from "uuid";
 import moment from "moment";
+import EditedMessage from "../../components/EditedMessage";
 
 class Chat extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class Chat extends React.Component {
         this.handleAddMessage = this.handleAddMessage.bind(this);
         this.handleUpdateMessage = this.handleUpdateMessage.bind(this);
         this.handleDeleteMessage = this.handleDeleteMessage.bind(this);
+        this.setEditedMessage = this.setEditedMessage.bind(this);
     }
 
     handleAddMessage(messageText) {
@@ -36,14 +38,20 @@ class Chat extends React.Component {
         this.props.deleteMessage(message);
     }
 
+    setEditedMessage(message) {
+        this.props.setEditedMessage(message);
+    }
+
     render() {
         const messages = this.props.messages;
+        const editedMessage = this.props.editedMessage;
 
         return (
             <div className="chat">
               <Header messages={messages} />
-              <MessageList messages={messages} updateMessage={this.handleUpdateMessage} deleteMessage={this.handleDeleteMessage} />
+              <MessageList messages={messages} setEditedMessage={this.setEditedMessage} deleteMessage={this.handleDeleteMessage} />
               <MessageInput addMessage={this.handleAddMessage} />
+              {editedMessage && <EditedMessage updateMessage={this.handleUpdateMessage} />}
             </div>
         );
     }
@@ -52,7 +60,8 @@ class Chat extends React.Component {
 const mapStateToProps = state => {
     return {
         messages: state.chat.messages,
-        profile: state.chat.profile
+        profile: state.chat.profile,
+        editedMessage: state.chat.editedMessage
     }
 };
 
