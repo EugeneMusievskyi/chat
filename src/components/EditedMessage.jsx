@@ -36,7 +36,9 @@ class EditedMessage extends React.Component {
                             <div className="field">
                                 <textarea rows="6" placeholder="Write your message..."
                                           value={this.state.body}
-                                          onChange={this.setBody} />
+                                          onChange={this.setBody}
+                                          autoFocus={true}
+                                />
                             </div>
                         </div>
                     </div>
