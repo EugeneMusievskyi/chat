@@ -6,10 +6,15 @@ class Message extends React.Component {
         super(props);
         this.state = {isLiked: false};
         this.setIsLiked = this.setIsLiked.bind(this);
+        this.handleSetEditedMessage = this.handleSetEditedMessage.bind(this);
     }
 
     setIsLiked() {
         this.setState({...this.state, isLiked: !this.state.isLiked});
+    }
+
+    handleSetEditedMessage() {
+        this.props.onEditMessage(this.props.message);
     }
 
     render() {
@@ -26,6 +31,7 @@ class Message extends React.Component {
               <div className="content">
                   {this.props.message.text}
               </div>
+                <span className="item edit" onClick={this.handleSetEditedMessage}><i className="cog icon"/></span>
                 <div className={"like " + liked} onClick={() => this.setIsLiked()}>
                     <i className="like icon" />
                 </div>

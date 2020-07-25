@@ -23,8 +23,8 @@ class UserMessage extends React.Component {
 
         return (
             <div className="ui message currentUserMessage">
-                <div className="item" onClick={this.handleSetEditedMessage}><i className="edit icon" />Edit</div>
-                <div className="item" onClick={this.handleDeleteMessage}><i className="delete icon" />Delete</div>
+                <div className="item edit" onClick={this.handleSetEditedMessage}><i className="cog icon"/></div>
+                <div className="item delete" onClick={this.handleDeleteMessage}><i className="delete icon" /></div>
               <div className="createdAt">
                   {time}
               </div>

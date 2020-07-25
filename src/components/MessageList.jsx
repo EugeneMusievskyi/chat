@@ -34,7 +34,7 @@ class MessageList extends React.Component {
                              onEditMessage={this.props.setEditedMessage}
                              onDeleteMessage={this.props.deleteMessage}
                 />
-                : <Message message={message} />;
+                : <Message message={message} onEditMessage={this.props.setEditedMessage} />;
 
             return (
                 <div>
