@@ -56,7 +56,7 @@ class Chat extends React.Component {
         return (
             <div className="chat">
               <Header messages={messages} />
-              <MessageList messages={messages} updateMessage={this.handleUpdateMessage} deleteMessage={this.handleAddMessage} />
+              <MessageList messages={messages} updateMessage={this.handleUpdateMessage} deleteMessage={this.handleDeleteMessage} />
               <MessageInput addMessage={this.handleAddMessage} />
             </div>
         );
