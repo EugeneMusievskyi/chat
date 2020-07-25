@@ -84,6 +84,19 @@ div.messageList {
   color: #6E6E6E;
 }
 
+.currentUserMessage .edit {
+  grid-column: 1;
+  grid-row: 1;
+  justify-content: flex-start;
+}
+
+.currentUserMessage .delete {
+  grid-column: 1;
+  grid-row: 2;
+  color: #6E6E6E;
+  visibility: hidden;
+}
+
 .message:hover .edit,
 .message:hover .delete {
   visibility: visible;
@@ -106,18 +119,7 @@ div.messageList {
     margin: 6px 0;
 }
 
-.currentUserMessage .edit {
-  grid-column: 1;
-  grid-row: 1;
-  justify-content: flex-start;
-}
 
-.currentUserMessage .delete {
-  grid-column: 1;
-  grid-row: 2;
-  color: #F3F4F5;
-  visibility: hidden;
-}
 
 .currentUserMessage .content {
   grid-column: 3;
