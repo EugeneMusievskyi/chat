@@ -12,7 +12,7 @@ class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.handleAddMessage = this.handleAddMessage.bind(this);
-        this.handleUpdateMessage = this.handleUpdateMessage.bind(this);
+        this.handleEditMessage = this.handleEditMessage.bind(this);
         this.handleDeleteMessage = this.handleDeleteMessage.bind(this);
         this.setEditedMessage = this.setEditedMessage.bind(this);
     }
@@ -30,8 +30,8 @@ class Chat extends React.Component {
         this.props.addMessage(message);
     }
 
-    handleUpdateMessage(message) {
-        this.props.updateMessage(message);
+    handleEditMessage(message) {
+        this.props.editMessage(message);
     }
 
     handleDeleteMessage(message) {
@@ -51,7 +51,7 @@ class Chat extends React.Component {
               <Header messages={messages} />
               <MessageList messages={messages} setEditedMessage={this.setEditedMessage} deleteMessage={this.handleDeleteMessage} />
               <MessageInput addMessage={this.handleAddMessage} />
-              {editedMessage && <EditedMessage message={editedMessage} updateMessage={this.handleUpdateMessage}
+              {editedMessage && <EditedMessage message={editedMessage} editMessage={this.handleEditMessage}
                     setEditedMessage={this.setEditedMessage} />}
             </div>
         );

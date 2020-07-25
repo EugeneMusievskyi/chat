@@ -1,6 +1,4 @@
-import {ADD_MESSAGE, DELETE_MESSAGE, SET_EDITED_MESSAGE, UPDATE_MESSAGE} from "./actionTypes";
-
-// const initialState = { messages: require("../../messages") };
+import {ADD_MESSAGE, DELETE_MESSAGE, SET_EDITED_MESSAGE, EDIT_MESSAGE} from "./actionTypes";
 
 export default function (state = {}, action) {
     switch (action.type) {
@@ -10,7 +8,7 @@ export default function (state = {}, action) {
                 messages: [ ...state.messages, action.message ]
             }
         }
-        case UPDATE_MESSAGE: {
+        case EDIT_MESSAGE: {
             return {
                 ...state,
                 messages: state.messages.map(m => m.id === action.message.id ? action.message : m)

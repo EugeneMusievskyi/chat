@@ -1,6 +1,4 @@
-import {v4 as uuidv4} from 'uuid';
-import moment from "moment";
-import {ADD_MESSAGE, DELETE_MESSAGE, SET_EDITED_MESSAGE, UPDATE_MESSAGE} from "./actionTypes";
+import {ADD_MESSAGE, DELETE_MESSAGE, SET_EDITED_MESSAGE, EDIT_MESSAGE} from "./actionTypes";
 
 export const addMessage = (message) => {
     return {
@@ -9,9 +7,9 @@ export const addMessage = (message) => {
     }
 };
 
-export const updateMessage = (message) => {
+export const editMessage = (message) => {
     return {
-        type: UPDATE_MESSAGE,
+        type: EDIT_MESSAGE,
         message
     }
 };

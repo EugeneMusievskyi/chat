@@ -4,7 +4,7 @@ class EditedMessage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {body: this.props.message.text};
-        this.handleUpdateMessage = this.handleUpdateMessage.bind(this);
+        this.handleEditMessage = this.handleEditMessage.bind(this);
         this.setBody = this.setBody.bind(this);
     }
 
@@ -12,7 +12,7 @@ class EditedMessage extends React.Component {
         this.setState({...this.state, body: e.target.value});
     }
 
-    handleUpdateMessage() {
+    handleEditMessage() {
         if (!this.state.body)
             return;
 
@@ -20,17 +20,16 @@ class EditedMessage extends React.Component {
             ...this.props.message,
             text: this.state.body
         };
-        this.props.updateMessage(message);
+        this.props.editMessage(message);
         this.props.setEditedMessage(null);
     }
 
     render() {
         return (
             <div className="ui page modals dimmer visible active">
-                {/*<div className="ui modal transition visible active">*/}
                 <div className="ui modal active" >
                     <div className="header">
-                      Update message
+                      Edit message
                     </div>
                     <div className="content">
                         <div id="inputMessage" className="ui form">
@@ -43,7 +42,7 @@ class EditedMessage extends React.Component {
                     </div>
                     <div className="actions">
                         <div className="ui button" onClick={() => this.props.setEditedMessage(null)}>Cancel</div>
-                        <div className="ui blue button" onClick={this.handleUpdateMessage}>Send</div>
+                        <div className="ui blue button" onClick={this.handleEditMessage}>Send</div>
                     </div>
                 </div>
              </div>
