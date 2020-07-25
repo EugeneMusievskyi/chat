@@ -1,12 +1,10 @@
 import {ADD_MESSAGE, DELETE_MESSAGE, UPDATE_MESSAGE} from "./actionTypes";
 
-const initialState = { messages: require("../../messages") };
+// const initialState = { messages: require("../../messages") };
 
-export default function (state = initialState, action) {
+export default function (state = {}, action) {
     switch (action.type) {
         case ADD_MESSAGE: {
-            // const messages = state.messages;
-            // messages.push(action.message);
             return {
                 ...state,
                 messages: [ ...state.messages, action.message ]

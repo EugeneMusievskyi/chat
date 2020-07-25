@@ -4,6 +4,8 @@ import MessageList from "../../components/MessageList";
 import MessageInput from "../../components/MessageInput";
 import * as actions from "./actions";
 import {connect} from "react-redux";
+import {v4 as uuidv4} from "uuid";
+import moment from "moment";
 
 class Chat extends React.Component {
     constructor(props) {
@@ -13,33 +15,17 @@ class Chat extends React.Component {
         this.handleDeleteMessage = this.handleDeleteMessage.bind(this);
     }
 
-    /*addMessage(messageText) {
+    handleAddMessage(messageText) {
         const message = {
             id: uuidv4(),
-            userId: this.props.currentUser.userId,
-            user: this.props.currentUser.user,
+            userId: this.props.profile.userId,
+            user: this.props.profile.user,
             text: messageText,
             createdAt: moment().utc().add(3, "hours"),
             updatedAt: ""
         };
 
-        const messages = this.state.messages;
-        messages.push(message);
-        this.setState({...this.state, messages: messages});
-    };
-
-    deleteMessage(message) {
-        const updatedMessages = this.state.messages.filter(m => m.id !== message.id);
-        this.setState({ ...this.state, messages: updatedMessages });
-    }
-
-    updateMessage(message) {
-        const updatedMessages = this.state.messages.map(m => m.id === message.id ? message : m);
-        this.setState({ ...this.state, messages: updatedMessages });
-    }*/
-
-    handleAddMessage(messageText) {
-        this.props.addMessage(messageText);
+        this.props.addMessage(message);
     }
 
     handleUpdateMessage(message) {
@@ -65,7 +51,8 @@ class Chat extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        messages: state.chat.messages
+        messages: state.chat.messages,
+        profile: state.chat.profile
     }
 };
 

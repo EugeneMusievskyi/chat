@@ -7,7 +7,10 @@ const currentUser = {
 };
 
 const initialState = {
-    messages: require("./messages.json")
+    chat : {
+        messages: require("./messages.json"),
+        profile: currentUser
+    }
 };
 
 const reducers = {
@@ -16,6 +19,6 @@ const reducers = {
 
 const rootReducer = combineReducers(reducers);
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, initialState);
 
 export default store;

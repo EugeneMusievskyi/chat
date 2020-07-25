@@ -2,14 +2,10 @@ import React from "react";
 import Message from "./Message";
 import moment from "moment";
 import DateDivider from "./DateDivider";
-import {currentUser} from "../index";
 import UserMessage from "./UserMessage";
+import {connect} from "react-redux";
 
 class MessageList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         this.scrollToBottom();
     }
@@ -33,7 +29,7 @@ class MessageList extends React.Component {
                 previousDate = currentDate;
             }
 
-            const mappedMessage = currentUser.userId === message.userId ?
+            const mappedMessage = this.props.profile.userId === message.userId ?
                 <UserMessage message={message}
                              onUpdateMessage={this.props.updateMessage}
                              onDeleteMessage={this.props.deleteMessage}
@@ -62,4 +58,12 @@ class MessageList extends React.Component {
     }
 }
 
-export default MessageList;
+const mapStateToProps = state => {
+    return {
+        profile: state.chat.profile
+    }
+};
+
+
+
+export default connect(mapStateToProps)(MessageList);
