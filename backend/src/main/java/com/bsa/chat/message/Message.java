@@ -11,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 @Table(name = "messages")
 public class Message extends BaseEntity {
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
