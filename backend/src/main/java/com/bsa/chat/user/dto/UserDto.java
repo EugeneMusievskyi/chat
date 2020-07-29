@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 public class UserDto {
     private UUID id;
-    private String name;
+    private String username;
     private String password;
     private String avatarLink;
     private final Date createdAt;
@@ -23,7 +23,7 @@ public class UserDto {
 
         return UserDto.builder()
                 .id(user.getId())
-                .name(user.getUsername())
+                .username(user.getUsername())
                 .avatarLink(user.getAvatarLink())
                 .createdAt(user.getCreatedAt())
                 .editedAt(user.getEditedAt())
@@ -31,15 +31,13 @@ public class UserDto {
     }
 
     public User toEntity() {
-        var user = User.builder()
+        return User.builder()
                 .id(id)
-                .username(name)
+                .username(username)
                 .password(password)
                 .avatarLink(avatarLink)
                 .createAt(createdAt)
                 .editedAt(editedAt)
                 .build();
-
-        return user;
     }
 }

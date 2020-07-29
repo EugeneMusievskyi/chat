@@ -1,8 +1,12 @@
 package com.bsa.chat.user;
 
+import com.bsa.chat.auth.model.AuthUser;
 import com.bsa.chat.user.dto.UserCreationDto;
 import com.bsa.chat.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +14,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
@@ -21,7 +25,7 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserDto getUser(UUID id) {
+    public UserDto getUserById(UUID id) {
         return userRepository
                 .findById(id)
                 .map(UserDto::fromEntity)
@@ -35,6 +39,11 @@ public class UserService {
         return UserDto.fromEntity(savedUser);
     }
 
+    public UserDto save(User user) {
+        var savedUser = userRepository.save(user);
+        return UserDto.fromEntity(savedUser);
+    }
+
     public UserDto update(UserDto userDto) {
         var user = userDto.toEntity();
         var updatedUser = userRepository.save(user);
@@ -43,5 +52,12 @@ public class UserService {
 
     public void delete(UUID id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .map(user -> new AuthUser(user.getId(), user.getUsername(), user.getPassword()))
+                .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }
