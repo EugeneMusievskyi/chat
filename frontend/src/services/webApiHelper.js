@@ -1,7 +1,7 @@
 import * as queryString from 'query-string';
 
 function getFetchUrl(args) {
-  return args.endpoint + (args.query ? `?${queryString.stringify(args.query)}` : '');
+  return 'http://localhost:8080' + args.endpoint + (args.query ? `?${queryString.stringify(args.query)}` : '');
 }
 
 function getFetchArgs(args) {
