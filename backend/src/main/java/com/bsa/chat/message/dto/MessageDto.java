@@ -1,6 +1,6 @@
-package com.bsa.chat.message;
+package com.bsa.chat.message.dto;
 
-import com.bsa.chat.user.UserDto;
+import com.bsa.chat.message.Message;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,10 +11,12 @@ import java.util.UUID;
 @Builder
 public class MessageDto {
     private final UUID id;
-    private final UserDto userDto;
+    private final UUID userId;
+    private final String avatar;
+    private final String user;
     private final String text;
     private final Date createdAt;
-    private final Date updatedAt;
+    private final Date editedAt;
 
 
     public static MessageDto fromEntity(Message message) {
@@ -24,10 +26,12 @@ public class MessageDto {
 
         return MessageDto.builder()
                 .id(message.getId())
-                .userDto(UserDto.fromEntity(message.getUser()))
+                .userId(message.getUser().getId())
+                .avatar(message.getUser().getAvatarLink())
+                .user(message.getUser().getUsername())
                 .text(message.getText())
                 .createdAt(message.getCreatedAt())
-                .updatedAt(message.getUpdatedAt())
+                .editedAt(message.getEditedAt())
                 .build();
     }
 }

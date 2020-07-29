@@ -15,8 +15,9 @@ import javax.persistence.*;
 @Table(name = "messages")
 public class Message extends BaseEntity {
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "office_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "body")
     private String text;
 }
