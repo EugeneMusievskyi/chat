@@ -1,7 +1,7 @@
-import {ADD_MESSAGE, DELETE_MESSAGE, SET_EDITED_MESSAGE, EDIT_MESSAGE, LOAD_MESSAGES} from "./actionTypes";
+import {ADD_MESSAGE, DELETE_MESSAGE, EDIT_MESSAGE, LOAD_MESSAGES, SET_EDITED_MESSAGE} from "./actionTypes";
 
-export const loadMessages =  async (dispatch) => {
-    const response = await fetch("https://edikdolynskyi.github.io/react_sources/messages.json");
+export const loadMessages = () => {
+    /*const response = await fetch("https://edikdolynskyi.github.io/react_sources/messages.json");
     let messages;
     if (response.ok) {
         messages = await response.json();
@@ -9,7 +9,11 @@ export const loadMessages =  async (dispatch) => {
         messages = require("../../messages.json");
     }
 
-    dispatch({ type: LOAD_MESSAGES, messages });
+    dispatch({ type: LOAD_MESSAGES, messages });*/
+
+    return {
+        type: LOAD_MESSAGES
+    }
 };
 
 export const addMessage = (message) => {

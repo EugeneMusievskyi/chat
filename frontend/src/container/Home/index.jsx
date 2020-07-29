@@ -1,8 +1,8 @@
 import React from "react";
 import {Provider} from "react-redux";
-import Routing from 'src/containers/Index';
-import store, {history} from 'src/store';
+import store, {history} from '../../store';
 import {BrowserRouter as Router} from "react-router-dom"
+import Routing from "../Routing";
 
 
 const Home = () => (

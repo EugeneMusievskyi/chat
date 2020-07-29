@@ -30,7 +30,7 @@ public class MessageController {
         return messageService.create(message);
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public void update(@RequestBody MessageDto messageDto) {
         messageService.update(messageDto);
     }

@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-// import store from "./store";
 import Home from "./container/Home";
+// import store from "./store";
 
 ReactDOM.render(
     <Home />,

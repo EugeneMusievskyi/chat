@@ -1,11 +1,9 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import chatReducer from "./container/Chat/reducer";
-import {loadMessages} from "./container/Chat/actions";
-import ReactDOM from "react-dom";
-import {Provider} from "react-redux";
-import Chat from "./container/Chat";
 import React from "react";
 import {createBrowserHistory} from 'history';
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from "./saga";
 
 const currentUser = {
     userId: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
@@ -22,15 +20,22 @@ const initialState = {
     }
 };
 
+
+
 const reducers = {
     chat: chatReducer,
 };
 
 const rootReducer = combineReducers(reducers);
 
-const store = createStore(rootReducer, initialState);
+const sagaMiddleware = createSagaMiddleware();
 
-(async () => {
+const store = createStore(rootReducer, initialState,
+                        applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(rootSaga);
+
+/*(async () => {
     await loadMessages(store.dispatch);
     ReactDOM.render(
         <Provider store={store}>
@@ -38,7 +43,7 @@ const store = createStore(rootReducer, initialState);
     </Provider>,
         document.getElementById('root')
     );
-})();
+})();*/
 
 
 export default store;
