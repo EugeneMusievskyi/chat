@@ -12,7 +12,8 @@
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
     "uuid": "latest",
-    "serve": "^11.3.2"
+    "serve": "^11.3.2",
+    "react-router-dom": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,9 +38,6 @@
     ]
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "moment": "^2.27.0",
-    "redux": "^4.0.5",
-    "semantic-ui-react": "^1.0.0"
+    "gulp": "^4.0.2"
   }
 }

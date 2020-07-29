@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/")
 public class MessageController {
     @Autowired
     private MessageService messageService;

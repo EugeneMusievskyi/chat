@@ -1,8 +1,11 @@
 import React from "react";
+import {Dimmer} from "semantic-ui-react";
 
 export const Loader = () => {
     return (
-        <div className="ui active loader"></div>
+        <Dimmer active inverted>
+            <Loader size="massive" inverted />
+        </Dimmer>
     );
 };
 
