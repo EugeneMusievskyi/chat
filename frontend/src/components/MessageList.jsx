@@ -21,6 +21,10 @@ class MessageList extends React.Component {
     mapMessages = (messages) => {
         let previousDate;
 
+        if (!messages) {
+            return null;
+        }
+
         return messages.map(message => {
             let currentDate = moment(message.createdAt).format();
             let dividerLine;
@@ -29,7 +33,7 @@ class MessageList extends React.Component {
                 previousDate = currentDate;
             }
 
-            const mappedMessage = this.props.profile.userId === message.userId ?
+            const mappedMessage = this.props.user.userId === message.userId ?
                 <UserMessage message={message}
                              onEditMessage={this.props.setEditedMessage}
                              onDeleteMessage={this.props.deleteMessage}
@@ -60,10 +64,8 @@ class MessageList extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        profile: state.chat.profile
+        user: state.profile.user
     }
 };
-
-
 
 export default connect(mapStateToProps)(MessageList);

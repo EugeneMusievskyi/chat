@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import static com.bsa.chat.auth.TokenService.getUserId;
+
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MessageController {
     @Autowired
     private MessageService messageService;
@@ -26,7 +29,7 @@ public class MessageController {
 
     @PostMapping
     public MessageDto post(@RequestBody MessageCreationDto message) {
-        // set user id
+        message.setUserId(getUserId());
         return messageService.create(message);
     }
 

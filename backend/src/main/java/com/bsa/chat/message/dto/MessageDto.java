@@ -24,14 +24,19 @@ public class MessageDto {
             return null;
         }
 
-        return MessageDto.builder()
+        var messageDtoBuilder = MessageDto.builder()
                 .id(message.getId())
-                .userId(message.getUser().getId())
-                .avatar(message.getUser().getAvatarLink())
-                .user(message.getUser().getUsername())
                 .text(message.getText())
                 .createdAt(message.getCreatedAt())
-                .editedAt(message.getEditedAt())
-                .build();
+                .editedAt(message.getEditedAt());
+
+        if (message.getUser() != null) {
+            messageDtoBuilder
+                    .userId(message.getUser().getId())
+                    .avatar(message.getUser().getAvatarLink())
+                    .user(message.getUser().getUsername());
+        }
+
+        return messageDtoBuilder.build();
     }
 }

@@ -8,75 +8,73 @@ import {v4 as uuidv4} from "uuid";
 import moment from "moment";
 import EditedMessage from "../../components/EditedMessage";
 
-class Chat extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleAddMessage = this.handleAddMessage.bind(this);
-        this.handleEditMessage = this.handleEditMessage.bind(this);
-        this.handleDeleteMessage = this.handleDeleteMessage.bind(this);
-        this.setEditedMessage = this.setEditedMessage.bind(this);
-        this.handleKeyPress = this.handleKeyPress.bind(this);
-    }
+const Chat = ({
+    user,
+    messages,
+    editedMessage,
+    loadMessages,
+    addMessage,
+    editMessage,
+    deleteMessage,
+    setEditedMessage
+}) => {
 
-    handleAddMessage(messageText) {
+    const handleAddMessage = (messageText) => {
         const message = {
             id: uuidv4(),
-            userId: this.props.profile.userId,
-            user: this.props.profile.user,
+            userId: user.userId,
+            user,
             text: messageText,
             createdAt: moment().utc().add(3, "hours"),
             updatedAt: ""
         };
 
-        this.props.addMessage(message);
-    }
+        addMessage(message);
+    };
 
-    handleEditMessage(message) {
-        this.props.editMessage(message);
-    }
+    const handleEditMessage = (message) => {
+        editMessage(message);
+    };
 
-    handleDeleteMessage(message) {
-        this.props.deleteMessage(message);
-    }
+    const handleDeleteMessage = (message) => {
+        deleteMessage(message);
+    };
 
-    setEditedMessage(message) {
-        this.props.setEditedMessage(message);
-    }
-
-    handleKeyPress(e) {
+    const handleKeyPress = (e) => {
         if (e.key === "ArrowUp") {
             const messages = this.props.messages;
             let lastMessage = null;
             for (let i = messages.length - 1; i >= 0; i--) {
-                if (messages[i].userId === this.props.profile.userId) {
+                if (messages[i].userId === user.userId) {
                     lastMessage = messages[i];
                     break;
                 }
             }
-            this.props.setEditedMessage(lastMessage);
+            setEditedMessage(lastMessage);
         }
     };
 
-    render() {
-        const messages = this.props.messages;
-        const editedMessage = this.props.editedMessage;
-
-        return (
-            <div className="chat" onKeyDown={this.handleKeyPress}>
-              <Header messages={messages} />
-              <MessageList messages={messages} setEditedMessage={this.setEditedMessage} deleteMessage={this.handleDeleteMessage} keyDown={this.handleKeyPress} />
-              <MessageInput addMessage={this.handleAddMessage} />
-              {editedMessage && <EditedMessage message={editedMessage} editMessage={this.handleEditMessage}
-                    setEditedMessage={this.setEditedMessage} />}
-            </div>
-        );
+    if (!messages) {
+        loadMessages();
+        // return null;
     }
-}
+
+    return (
+        <div className="chat" onKeyDown={handleKeyPress}>
+              <Header messages={messages} />
+              <MessageList messages={messages} setEditedMessage={setEditedMessage}
+                           deleteMessage={handleDeleteMessage} keyDown={handleKeyPress} />
+              <MessageInput addMessage={handleAddMessage} />
+            {editedMessage && <EditedMessage message={editedMessage} editMessage={handleEditMessage}
+                                             setEditedMessage={setEditedMessage} />}
+            </div>
+    );
+};
 
 const mapStateToProps = state => {
     return {
         messages: state.chat.messages,
-        profile: state.chat.profile,
+        user: state.profile.user,
         editedMessage: state.chat.editedMessage
     }
 };

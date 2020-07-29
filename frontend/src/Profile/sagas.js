@@ -1,6 +1,7 @@
 import {call, put, takeEvery} from "@redux-saga/core/effects";
 import * as authService from "../services/authService";
-import {LOAD_USER, LOAD_USER_SUCCESS, SET_AUTH_DATA, SET_USER} from "./actionTypes";
+import {LOAD_USER, LOAD_USER_SUCCESS, SET_AUTH_DATA, SET_USER} from './actionTypes'
+import {LOAD_MESSAGES} from "../container/Chat/actionTypes";
 
 
 export function* loadUser() {
@@ -14,15 +15,19 @@ export function* loadUser() {
 
 const setToken = token => localStorage.setItem('token', token);
 
-export function* setAuthData(user = null, token = '') {
-    setToken(token);
-    yield put( { type: LOAD_USER_SUCCESS, payload: { user } } )
+export function* setAuthData(action) {
+    if (action.payload.token) {
+        yield put({ type: LOAD_MESSAGES })
+    }
+
+    setToken(action.payload.token);
+    yield put( { type: LOAD_USER_SUCCESS, payload: { user: action.payload.user } } )
 }
 
 export function* login(action) {
     try {
         const {user, token} = yield call(authService.login, action.request);
-        yield put({ type: SET_AUTH_DATA, payload: { user, token } })
+        yield put( { type: SET_AUTH_DATA, payload: { user, token } })
     } catch (e) {
         console.log(e);
     }

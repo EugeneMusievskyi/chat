@@ -13,6 +13,7 @@ import static com.bsa.chat.auth.TokenService.getUserId;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     @Autowired
     private UserService userService;

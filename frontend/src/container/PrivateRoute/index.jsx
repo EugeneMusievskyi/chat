@@ -1,5 +1,6 @@
 import React from "react";
 import {Redirect, Route} from "react-router-dom";
+import {connect} from "react-redux";
 
 const PrivateRoute = ({ component: Component, isAuthorized, ...rest }) => (
     <Route
@@ -10,4 +11,8 @@ const PrivateRoute = ({ component: Component, isAuthorized, ...rest }) => (
     />
 );
 
-export default PrivateRoute;
+const mapStateToProps = state => ({
+    isAuthorized: state.profile?.isAuthorized
+});
+
+export default connect(mapStateToProps)(PrivateRoute);

@@ -1,16 +1,6 @@
 import {ADD_MESSAGE, DELETE_MESSAGE, EDIT_MESSAGE, LOAD_MESSAGES, SET_EDITED_MESSAGE} from "./actionTypes";
 
 export const loadMessages = () => {
-    /*const response = await fetch("https://edikdolynskyi.github.io/react_sources/messages.json");
-    let messages;
-    if (response.ok) {
-        messages = await response.json();
-    } else {
-        messages = require("../../messages.json");
-    }
-
-    dispatch({ type: LOAD_MESSAGES, messages });*/
-
     return {
         type: LOAD_MESSAGES
     }

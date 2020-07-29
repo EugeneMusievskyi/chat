@@ -26,13 +26,13 @@ public class MessageService {
     }
 
     public MessageDto create(MessageCreationDto messageCreationDto) {
-        /*var user = userRepository
+        var user = userRepository
                 .findById(messageCreationDto.getUserId())
-                .orElse(null);*/
+                .orElse(null);
 
         var message = Message.builder()
                 .text(messageCreationDto.getText())
-                .user(null)
+                .user(user)
                 .build();
 
 
