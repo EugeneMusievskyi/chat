@@ -1,13 +1,13 @@
 import {call, put, takeEvery} from "@redux-saga/core/effects";
 import * as authService from "../services/authService";
-import {LOAD_USER, LOAD_USER_SUCCESS, SET_AUTH_DATA, SET_USER} from './actionTypes'
+import {LOAD_CURRENT_USER, LOAD_CURRENT_USER_SUCCESS, SET_AUTH_DATA, SET_USER} from './actionTypes'
 import {LOAD_MESSAGES} from "../container/Chat/actionTypes";
 
 
 export function* loadUser() {
     try {
         const user = yield call(authService.getCurrentUser);
-        yield put({type: LOAD_USER_SUCCESS, payload: {user}})
+        yield put({type: LOAD_CURRENT_USER_SUCCESS, payload: {user}})
     } catch (e) {
         console.log(e);
     }
@@ -21,7 +21,7 @@ export function* setAuthData(action) {
     }
 
     setToken(action.payload.token);
-    yield put( { type: LOAD_USER_SUCCESS, payload: { user: action.payload.user } } )
+    yield put( { type: LOAD_CURRENT_USER_SUCCESS, payload: { user: action.payload.user } } )
 }
 
 export function* login(action) {
@@ -34,7 +34,7 @@ export function* login(action) {
 }
 
 export default function* profileSaga() {
-    yield takeEvery(LOAD_USER, loadUser);
+    yield takeEvery(LOAD_CURRENT_USER, loadUser);
     yield takeEvery(SET_USER, login);
     yield takeEvery(SET_AUTH_DATA, setAuthData)
 }

@@ -5,6 +5,7 @@ import MessageInput from "../../components/MessageInput";
 import * as actions from "./actions";
 import {connect} from "react-redux";
 import EditedMessage from "../../components/EditedMessage";
+import {getAllUsers} from "../Users/actions";
 
 const Chat = ({
          history,
@@ -53,6 +54,7 @@ const Chat = ({
 
         return (
             <div className="chat" onKeyDown={handleKeyPress}>
+              {/*<Button color="green" className="switch-users" onClick={handleSwitchUsers}>Users</Button>*/}
               <Header messages={messages} />
               <MessageList messages={messages} setEditedMessage={handleSetEditedMessage}
                            deleteMessage={handleDeleteMessage} keyDown={handleKeyPress} />
@@ -72,7 +74,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    ...actions
+    ...actions,
+    getAllUsers
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

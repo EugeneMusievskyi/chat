@@ -12,7 +12,6 @@ import java.util.UUID;
 public class UserDto {
     private UUID id;
     private String username;
-    private String password;
     private String avatarLink;
     private final Date createdAt;
     private final Date editedAt;
@@ -34,7 +33,6 @@ public class UserDto {
         return User.builder()
                 .id(id)
                 .username(username)
-                .password(password)
                 .avatarLink(avatarLink)
                 .createAt(createdAt)
                 .editedAt(editedAt)

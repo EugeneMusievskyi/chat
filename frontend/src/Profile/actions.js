@@ -1,9 +1,9 @@
-import {LOAD_USER, SET_USER} from "./actionTypes";
+import {LOAD_CURRENT_USER, SET_USER} from "./actionTypes";
 
 
 export const loadUser = () => {
     return {
-        type: LOAD_USER
+        type: LOAD_CURRENT_USER
     }
 };
 

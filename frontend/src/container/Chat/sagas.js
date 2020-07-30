@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from "@redux-saga/core/effects";
+import {call, put, takeEvery, takeLatest} from "@redux-saga/core/effects";
 import {ADD_MESSAGE, DELETE_MESSAGE, EDIT_MESSAGE, LOAD_MESSAGES, LOAD_MESSAGES_SUCCESS} from "./actionTypes";
 import * as messageService from "../../services/messageService";
 
@@ -41,7 +41,7 @@ export function* deleteMessage(action) {
 }
 
 export default function* messageSaga() {
-    yield takeEvery(LOAD_MESSAGES, loadMessages);
+    yield takeLatest(LOAD_MESSAGES, loadMessages);
     yield takeEvery(ADD_MESSAGE, addMessage);
     yield takeEvery(EDIT_MESSAGE, editMessage);
     yield takeEvery(DELETE_MESSAGE, deleteMessage);

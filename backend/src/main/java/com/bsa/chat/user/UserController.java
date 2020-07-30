@@ -24,8 +24,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDto getUser(@PathVariable("id") UUID id) {
-        return userService.getUserById(id);
+    public UserDetailsDto getUser(@PathVariable("id") UUID id) {
+        var userDto = userService.getUserById(id);
+        return new UserDetailsDto(userDto.getId(), userDto.getUsername());
     }
 
     @GetMapping

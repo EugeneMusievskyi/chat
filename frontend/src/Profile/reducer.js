@@ -1,8 +1,8 @@
-import {LOAD_USER_SUCCESS} from "./actionTypes";
+import {LOAD_CURRENT_USER_SUCCESS} from "./actionTypes";
 
 export default function(state = {}, action) {
     switch (action.type) {
-        case LOAD_USER_SUCCESS: {
+        case LOAD_CURRENT_USER_SUCCESS: {
             return {
                 ...state,
                 user: action.payload.user,

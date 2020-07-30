@@ -2,6 +2,7 @@ import React from "react";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import chatReducer from "./container/Chat/reducer";
 import profileReducer from "./Profile/reducer"
+import usersReducer from "./container/Users/reducer"
 import {createBrowserHistory} from 'history';
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from "./saga";
@@ -12,7 +13,8 @@ const initialState = {};
 
 const reducers = {
     chat: chatReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    users: usersReducer
 };
 
 const rootReducer = combineReducers(reducers);

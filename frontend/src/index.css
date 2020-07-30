@@ -188,3 +188,20 @@ div.header h3 {
   margin-top: 10px;
   margin-right: 10px;
 }
+
+.userForm {
+  width: 800px;
+  display: flex;
+  justify-content: center !important;
+}
+
+.username {
+  font-size: 26px;
+  color: white;
+  background: red;
+  display: inline;
+}
+
+.buttons {
+  float: right;
+}
