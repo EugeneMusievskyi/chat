@@ -6,10 +6,10 @@ export const loadMessages = () => {
     }
 };
 
-export const addMessage = (message) => {
+export const addMessage = (text) => {
     return {
         type: ADD_MESSAGE,
-        message
+        message: { text }
     }
 };
 

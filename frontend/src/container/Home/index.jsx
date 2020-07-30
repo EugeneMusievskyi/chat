@@ -1,7 +1,7 @@
 import React from "react";
 import {Provider} from "react-redux";
 import store, {history} from '../../store';
-import {BrowserRouter as Router} from "react-router-dom"
+import {HashRouter as Router} from "react-router-dom"
 import Routing from "../Routing";
 
 

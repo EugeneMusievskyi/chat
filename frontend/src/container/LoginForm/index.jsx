@@ -2,8 +2,10 @@ import React, {useState} from 'react'
 import {Button, Form, Grid, Header, Segment} from 'semantic-ui-react'
 import {login} from "../../Profile/actions";
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
+import {compose} from "redux";
 
-const LoginForm = ({ login }) => {
+const LoginForm = ({ history, login }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -12,6 +14,7 @@ const LoginForm = ({ login }) => {
             return;
 
         login({ username, password });
+        history.push("/");
     };
 
     return (
@@ -48,4 +51,7 @@ const mapDispatchToProps = {
   login
 };
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+export default compose(
+    withRouter,
+    connect(null, mapDispatchToProps)
+)(LoginForm);

@@ -14,7 +14,7 @@ class Message extends React.Component {
     }
 
     handleSetEditedMessage() {
-        this.props.onEditMessage(this.props.message);
+        this.props.onEditMessage(this.props.message.id);
     }
 
     render() {

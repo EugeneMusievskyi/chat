@@ -1,4 +1,4 @@
-import {ADD_MESSAGE, DELETE_MESSAGE, EDIT_MESSAGE, LOAD_MESSAGES_SUCCESS, SET_EDITED_MESSAGE} from "./actionTypes";
+import {DELETE_MESSAGE, EDIT_MESSAGE, LOAD_MESSAGES_SUCCESS, SET_EDITED_MESSAGE} from "./actionTypes";
 
 export default function (state = {}, action) {
     switch (action.type) {
@@ -6,12 +6,6 @@ export default function (state = {}, action) {
             return {
                 ...state,
                 messages: action.messages
-            }
-        }
-        case ADD_MESSAGE: {
-            return {
-                ...state,
-                messages: [ ...state.messages, action.message ]
             }
         }
         case EDIT_MESSAGE: {

@@ -33,7 +33,7 @@ class MessageList extends React.Component {
                 previousDate = currentDate;
             }
 
-            const mappedMessage = this.props.user.userId === message.userId ?
+            const mappedMessage = this.props.user.id === message.userId ?
                 <UserMessage message={message}
                              onEditMessage={this.props.setEditedMessage}
                              onDeleteMessage={this.props.deleteMessage}

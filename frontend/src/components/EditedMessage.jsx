@@ -1,56 +1,54 @@
-import React from "react";
+import React, {useState} from "react";
+import {Form} from "semantic-ui-react";
+import {editMessage} from "../container/Chat/actions";
+import {connect} from "react-redux";
 
-class EditedMessage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {body: this.props.message.text};
-        this.handleEditMessage = this.handleEditMessage.bind(this);
-        this.setBody = this.setBody.bind(this);
-    }
+const EditedMessage = ({ match, history, messages, editMessage }) => {
+    const id = match.params.id.substring(1);
+    const filteredMessages = messages.filter(mes => mes.id === id);
+    const editedMessage = filteredMessages[0];
 
-    setBody(e) {
-        this.setState({...this.state, body: e.target.value});
-    }
+    const [body, setBody] = useState(editedMessage.text);
 
-    handleEditMessage() {
-        if (!this.state.body)
-            return;
+    const handleEditMessage = () => {
+        editedMessage.text = body;
+        editMessage(editedMessage);
+        history.push("/");
+    };
 
-        const message = {
-            ...this.props.message,
-            text: this.state.body
-        };
-        this.props.editMessage(message);
-        this.props.setEditedMessage(null);
-    }
+    const onCancel = () => {
+        history.push("/");
+    };
 
-    render() {
-        return (
-            <div className="ui page modals dimmer visible active">
-                <div className="ui modal active" >
-                    <div className="header">
-                      Edit message
-                    </div>
-                    <div className="content">
-                        <div id="inputMessage" className="ui form">
-                            <div className="field">
-                                <textarea rows="6" placeholder="Write your message..."
-                                          value={this.state.body}
-                                          onChange={this.setBody}
-                                          autoFocus={true}
-                                />
-                            </div>
+    return (
+        <Form className="editMessage">
+            <div className="header">Edit message</div>
+                <div className="content">
+                    <div id="inputMessage" className="ui form">
+                        <div className="field">
+                            <textarea rows="6" placeholder="Write your message..." value={body}
+                                      onChange={e => setBody(e.target.value)} autoFocus={true} />
                         </div>
                     </div>
-                    <div className="actions">
-                        <div className="ui button" onClick={() => this.props.setEditedMessage(null)}>Cancel</div>
-                        <div className="ui blue button" onClick={this.handleEditMessage}>Send</div>
-                    </div>
                 </div>
-             </div>
-        );
+            <div className="actions floating right">
+                <div className="ui button" onClick={onCancel}>Cancel</div>
+                <div className="ui blue button" onClick={handleEditMessage}>Send</div>
+            </div>
+        </Form>
+    )
+};
 
+const mapStateToProps = state => {
+    return {
+        messages: state.chat.messages
     }
-}
+};
 
-export default EditedMessage;
+const mapDispatchToProps = () => {
+    return {
+        editMessage
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditedMessage);
