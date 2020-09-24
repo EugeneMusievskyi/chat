@@ -2,10 +2,9 @@ import * as React from "react";
 import Header from "../../components/Header";
 import MessageList from "../../components/MessageList";
 import MessageInput from "../../components/MessageInput";
-import * as actions from "./actions";
 import {connect} from "react-redux";
 import EditedMessage from "../../components/EditedMessage";
-import {getAllUsers} from "../Users/actions";
+import {loadAllUsersRoutine} from "../../sagas/users/routines";
 
 const Chat = ({
          history,
@@ -74,8 +73,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    ...actions,
-    getAllUsers
+    loadAllUsers: loadAllUsersRoutine
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

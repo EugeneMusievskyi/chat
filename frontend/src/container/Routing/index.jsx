@@ -1,21 +1,21 @@
 import React, {useEffect} from "react";
 import Loader from "../../components/Loader";
-import {Switch} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import PublicRoute from "../PublicRoute";
 import LoginForm from "../LoginForm";
 import PrivateRoute from "../PrivateRoute";
 import Chat from "../Chat";
-import EditedMessage from "../../components/EditedMessage";
 import {connect} from "react-redux";
-import {loadUser} from "../../Profile/actions";
+import {loadUserRoutine} from "../../sagas/auth/routines";
+import {useAuth} from "../../helpers/authorization.helper";
 
-const Routing = ({ isAuthorized, loadUser }) => {
+const Routing = ({ loadUser }) => {
     const isLoading = false;
+    const isLogged = useAuth();
+
     useEffect(() => {
-        if (!isAuthorized) {
-            loadUser();
-        }
-    });
+        isLogged && loadUser();
+    }, [isLogged, loadUser]);
 
     return (
         isLoading
@@ -25,8 +25,10 @@ const Routing = ({ isAuthorized, loadUser }) => {
                  <Switch>
                     <PublicRoute exact path="/login" component={LoginForm} />
                     <PrivateRoute exact path="/" component={Chat} />
-                    <PrivateRoute path="/edit/:id" component={EditedMessage} />
                     {/*<PrivateRoute path="/users" component={Users} />*/}
+                    <Route path="/*">
+                        <Redirect to="/"/>
+                    </Route>
                  </Switch>
                </div>
             )
@@ -35,13 +37,12 @@ const Routing = ({ isAuthorized, loadUser }) => {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthorized: state.profile.isAuthorized,
-        user: state.profile.user
+        user: state.user.user
     }
 };
 
 const mapDispatchToProps = {
-    loadUser
+    loadUser: loadUserRoutine
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routing);

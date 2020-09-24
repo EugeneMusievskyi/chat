@@ -1,26 +1,31 @@
-import {DELETE_MESSAGE, EDIT_MESSAGE, LOAD_MESSAGES_SUCCESS, SET_EDITED_MESSAGE} from "./actionTypes";
+import {
+    loadMessagesRoutine,
+    editMessageRoutine,
+    deleteMessageRoutine,
+    setEditedMessageRoutine
+} from "../../sagas/chat/routines";
 
-export default function (state = {}, action) {
+const chatReducer = (state = {}, action) => {
     switch (action.type) {
-        case LOAD_MESSAGES_SUCCESS: {
+        case loadMessagesRoutine.TRIGGER: {
             return {
                 ...state,
                 messages: action.messages
             }
         }
-        case EDIT_MESSAGE: {
+        case editMessageRoutine.TRIGGER: {
             return {
                 ...state,
                 messages: state.messages.map(m => m.id === action.message.id ? action.message : m)
             }
         }
-        case DELETE_MESSAGE: {
+        case deleteMessageRoutine.TRIGGER: {
             return {
                 ...state,
                 messages: state.messages.filter(m => m.id !== action.message.id)
             }
         }
-        case SET_EDITED_MESSAGE: {
+        case setEditedMessageRoutine.TRIGGER: {
             return {
                 ...state,
                 editedMessage: action.message
@@ -29,4 +34,6 @@ export default function (state = {}, action) {
         default:
             return state;
     }
-}
+};
+
+export default chatReducer;

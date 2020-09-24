@@ -1,11 +1,11 @@
 import React from "react";
 import {Provider} from "react-redux";
 import store, {history} from '../../store';
-import {HashRouter as Router} from "react-router-dom"
+import {Router} from "react-router-dom"
 import Routing from "../Routing";
 
 
-const Home = () => (
+const App = () => (
     <Provider store={store}>
         <Router history={history}>
           <Routing />
@@ -13,4 +13,4 @@ const Home = () => (
     </Provider>
 );
 
-export default Home;
+export default App;

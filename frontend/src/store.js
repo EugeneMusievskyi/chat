@@ -1,27 +1,16 @@
-import React from "react";
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import chatReducer from "./container/Chat/reducer";
-import profileReducer from "./Profile/reducer"
-import usersReducer from "./container/Users/reducer"
+import {applyMiddleware, createStore} from "redux";
 import {createBrowserHistory} from 'history';
 import createSagaMiddleware from 'redux-saga'
-import rootSaga from "./saga";
+import rootSaga from "./sagas";
+import reducers from "./reducers";
 
 export const history = createBrowserHistory();
 
 const initialState = {};
 
-const reducers = {
-    chat: chatReducer,
-    profile: profileReducer,
-    users: usersReducer
-};
-
-const rootReducer = combineReducers(reducers);
-
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer, initialState,
+const store = createStore(reducers, initialState,
                         applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);

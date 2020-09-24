@@ -1,4 +1,4 @@
-import callWebApi from "./webApiHelper";
+import callWebApi from "../helpers/webApiHelper";
 
 export const login = async request => {
     const response = await callWebApi({

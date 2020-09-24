@@ -1,4 +1,4 @@
-import callWebApi from "./webApiHelper";
+import callWebApi from "../helpers/webApiHelper";
 
 export const getAllUsers = async () => {
     const response = await callWebApi({
@@ -18,25 +18,12 @@ export const getUserById = async (id) => {
     return response.json();
 };
 
-export const addUser = async (request) => {
+export const createUser = async (request) => {
     const response = await callWebApi({
         endpoint: '/user',
         type: 'POST',
         request
-    })
-};
-
-export const editUser = async (request) => {
-    const response = await callWebApi({
-        endpoint: '/user/edit',
-        type: 'POST',
-        request
     });
-};
 
-export const deleteUser = async (id) => {
-    await callWebApi({
-        endpoint: `/${id}`,
-        type: 'DELETE'
-    })
+    return response.json();
 };

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Form} from "semantic-ui-react";
-import {editMessage} from "../container/Chat/actions";
 import {connect} from "react-redux";
+import {editMessageRoutine} from "../sagas/chat/routines";
 
 const EditedMessage = ({ match, history, messages, editMessage }) => {
     const id = match.params.id.substring(1);
@@ -47,7 +47,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = () => {
     return {
-        editMessage
+        editMessage: editMessageRoutine
     }
 };
 

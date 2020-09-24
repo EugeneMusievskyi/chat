@@ -1,7 +1,10 @@
 import * as queryString from 'query-string';
+import {env} from "../env";
+
+const domain = `http://${env.backendHost}:${env.backendPort}`;
 
 function getFetchUrl(args) {
-  return 'http://localhost:8080' + args.endpoint + (args.query ? `?${queryString.stringify(args.query)}` : '');
+  return domain + args.endpoint + (args.query ? `?${queryString.stringify(args.query)}` : '');
 }
 
 function getFetchArgs(args) {

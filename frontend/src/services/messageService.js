@@ -1,4 +1,4 @@
-import callWebApi from "./webApiHelper";
+import callWebApi from "../helpers/webApiHelper";
 
 export const getAllMessages = async () => {
     const response = await callWebApi({

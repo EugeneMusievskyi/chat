@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import {Button, Form, Grid, Header, Segment} from 'semantic-ui-react'
-import {login} from "../../Profile/actions";
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
 import {compose} from "redux";
+import { useHistory } from "react-router-dom";
+import {loginRoutine} from "../../sagas/auth/routines";
 
-const LoginForm = ({ history, login }) => {
+const LoginForm = ({ login }) => {
+    const history = useHistory();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -48,10 +49,9 @@ const LoginForm = ({ history, login }) => {
 };
 
 const mapDispatchToProps = {
-  login
+  login: loginRoutine
 };
 
 export default compose(
-    withRouter,
     connect(null, mapDispatchToProps)
 )(LoginForm);
