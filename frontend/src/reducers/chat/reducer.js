@@ -2,7 +2,7 @@ import {
     loadMessagesRoutine,
     editMessageRoutine,
     deleteMessageRoutine,
-    setEditedMessageRoutine
+    setEditedMessageRoutine, addMessageRoutine
 } from "../../sagas/chat/routines";
 
 const chatReducer = (state = {}, action) => {
@@ -13,16 +13,22 @@ const chatReducer = (state = {}, action) => {
                 messages: action.payload
             }
         }
-        case editMessageRoutine.TRIGGER: {
+        case addMessageRoutine.SUCCESS: {
             return {
                 ...state,
-                messages: state.messages.map(m => m.id === action.message.id ? action.message : m)
+                messages: [...state.messages, action.payload]
             }
         }
-        case deleteMessageRoutine.TRIGGER: {
+        case editMessageRoutine.SUCCESS: {
             return {
                 ...state,
-                messages: state.messages.filter(m => m.id !== action.message.id)
+                messages: state.messages.map(m => m.id === action.payload.id ? action.payload : m)
+            }
+        }
+        case deleteMessageRoutine.SUCCESS: {
+            return {
+                ...state,
+                messages: state.messages.filter(m => m.id !== action.payload.id)
             }
         }
         case setEditedMessageRoutine.TRIGGER: {

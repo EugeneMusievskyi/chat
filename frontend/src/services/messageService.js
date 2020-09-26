@@ -29,11 +29,13 @@ export const saveMessage = async request => {
 };
 
 export const updateMessage = async request => {
-    await callWebApi({
+    const response = await callWebApi({
         endpoint: 'api/messages/edit',
         type: 'PUT',
         request
     });
+
+    return response.json();
 };
 
 export const deleteMessage = async id => {

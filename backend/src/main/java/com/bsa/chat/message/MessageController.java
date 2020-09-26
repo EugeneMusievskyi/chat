@@ -2,6 +2,8 @@ package com.bsa.chat.message;
 
 import com.bsa.chat.message.dto.MessageCreationDto;
 import com.bsa.chat.message.dto.MessageDto;
+import com.bsa.chat.message.dto.MessageUpdateDto;
+import com.bsa.chat.message.exceptions.MessageNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +37,8 @@ public class MessageController {
     }
 
     @PutMapping("/edit")
-    public void update(@RequestBody MessageDto messageDto) {
-        messageService.update(messageDto);
+    public MessageDto update(@RequestBody MessageUpdateDto messageDto) throws MessageNotFoundException {
+        return messageService.update(messageDto);
     }
 
     @DeleteMapping("/{id}")

@@ -2,9 +2,8 @@ import React from "react";
 import Message from "../Message";
 import moment from "moment";
 import DateDivider from "../DateDivider";
-import UserMessage from "../UserMessage";
 import {connect} from "react-redux";
-import {deleteMessageRoutine, setEditedMessageRoutine} from "../../sagas/chat/routines";
+import {deleteMessageRoutine, editMessageRoutine, setEditedMessageRoutine} from "../../sagas/chat/routines";
 import styles from "./styles.module.sass";
 import {CommentGroup} from "semantic-ui-react";
 
@@ -20,14 +19,14 @@ const MessageList = ({ user, messages, setEditedMessage, deleteMessage }) => {
                 previousDate = currentDate;
             }
 
-            /* const mappedMessage = user?.id === message.userId ?
-                <UserMessage message={message}
-                             onEditMessage={setEditedMessage}
-                             onDeleteMessage={deleteMessage}
+            const mappedMessage = user?.id === message.userId ?
+                <Message
+                    message={message}
+                    onEditMessage={setEditedMessage}
+                    onDeleteMessage={deleteMessage}
+                    currentUser
                 />
-                : <Message message={message} />;*/
-
-            const mappedMessage = <Message message={message} />;
+                : <Message message={message} />;
 
             return (
                 <div>
@@ -40,24 +39,28 @@ const MessageList = ({ user, messages, setEditedMessage, deleteMessage }) => {
 
 
     return (
-        <CommentGroup size="large" className={styles.messageList}>
-            {mapMessages(messages)}
-            <div ref={messagesEndRef => {
-                // this.messagesEndRef = messagesEndRef
-            }} />
-        </CommentGroup>
+        <>
+            <CommentGroup size="large" className={styles.messageList}>
+                {mapMessages(messages)}
+                <div ref={messagesEndRef => {
+                    // this.messagesEndRef = messagesEndRef
+                }} />
+            </CommentGroup>
+        </>
     );
 };
 
 const mapStateToProps = state => {
     return {
         messages: state.chat.messages,
+        editedMessage: state.chat.editedMessage,
         user: state.profile.user
     }
 };
 
 const mapDispatchToProps = {
     setEditedMessage: setEditedMessageRoutine,
+    editMessage: editMessageRoutine,
     deleteMessage: deleteMessageRoutine
 };
 

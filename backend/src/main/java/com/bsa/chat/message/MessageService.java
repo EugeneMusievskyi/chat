@@ -2,6 +2,8 @@ package com.bsa.chat.message;
 
 import com.bsa.chat.message.dto.MessageCreationDto;
 import com.bsa.chat.message.dto.MessageDto;
+import com.bsa.chat.message.dto.MessageUpdateDto;
+import com.bsa.chat.message.exceptions.MessageNotFoundException;
 import com.bsa.chat.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +42,15 @@ public class MessageService {
         return MessageDto.fromEntity(savedMessage);
     }
 
-    public void update(MessageDto messageDto) {
-         messageRepository.updateMessage(messageDto.getId(), messageDto.getBody());
+    public MessageDto update(MessageUpdateDto messageUpdateDto) throws MessageNotFoundException {
+        var message = messageRepository
+                .findById(messageUpdateDto.getId())
+                .orElseThrow(MessageNotFoundException::new);
+
+        message.setBody(messageUpdateDto.getBody());
+        var updatedMessage = messageRepository.save(message);
+
+        return MessageDto.fromEntity(updatedMessage);
     }
 
     public void delete(UUID id) {

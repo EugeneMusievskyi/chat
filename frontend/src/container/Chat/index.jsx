@@ -3,19 +3,18 @@ import Header from "../../components/Header";
 import MessageList from "../../components/MessageList";
 import MessageInput from "../../components/MessageInput";
 import {connect} from "react-redux";
-import EditedMessage from "../../components/EditedMessage";
 import {loadAllUsersRoutine} from "../../sagas/users/routines";
 import {useEffect} from "react";
 import {
     addMessageRoutine,
     deleteMessageRoutine,
     editMessageRoutine,
-    loadMessagesRoutine
+    loadMessagesRoutine, setEditedMessageRoutine
 } from "../../sagas/chat/routines";
 import styles from "./styles.module.sass";
+import {useState} from "react";
 
 const Chat = ({
-         history,
          user,
          messages,
          editedMessage,
@@ -29,20 +28,19 @@ const Chat = ({
             loadMessages();
         }, [loadMessages]);
 
-        const handleAddMessage = (messageText) => {
-            addMessage(messageText);
-        };
+        useEffect(() => {
+            setBody(editedMessage ? editedMessage.body : "")
+        }, [editedMessage]);
 
-        const handleEditMessage = (message) => {
-            editMessage(message);
-        };
+        const [body, setBody] = useState("");
 
-        const handleSetEditedMessage = (id) => {
-            history.push(`/edit/:${id}`);
-        };
+        const handleSubmit = () => {
+            if (!body)
+                return;
 
-        const handleDeleteMessage = (message) => {
-            deleteMessage(message);
+            const submit = editedMessage ? editMessage : addMessage;
+            submit({ body });
+            setBody("");
         };
 
         const handleKeyPress = (e) => {
@@ -54,19 +52,27 @@ const Chat = ({
                         break;
                     }
                 }
-                handleSetEditedMessage(lastMessage.id);
+                setEditedMessage(lastMessage);
+            }
+            if (e.ctrlKey && e.keyCode === 13) {
+                handleSubmit();
             }
         };
 
         return (
             <div className={styles.chat} onKeyDown={handleKeyPress}>
-              {/*<Button color="green" className="switch-users" onClick={handleSwitchUsers}>Users</Button>*/}
               <Header messages={messages} />
-              <MessageList messages={messages} setEditedMessage={handleSetEditedMessage}
-                           deleteMessage={handleDeleteMessage} keyDown={handleKeyPress} />
-              <MessageInput addMessage={handleAddMessage} />
-                {editedMessage && <EditedMessage message={editedMessage} editMessage={handleEditMessage}
-                                                 setEditedMessage={setEditedMessage} />}
+              <MessageList messages={messages} setEditedMessage={setEditedMessage}
+                           deleteMessage={deleteMessage} keyDown={handleKeyPress} />
+              <MessageInput
+                  value={body}
+                  onChange={e => setBody(e.target.value)}
+                  onSubmit={handleSubmit}
+                  onCancel={editedMessage
+                      ? () => setEditedMessage(null)
+                      : () => setBody("")
+                  }
+              />
             </div>
         );
     };
@@ -84,7 +90,8 @@ const mapDispatchToProps = {
     loadMessages: loadMessagesRoutine,
     addMessage: addMessageRoutine,
     editMessage: editMessageRoutine,
-    deleteMessage: deleteMessageRoutine
+    deleteMessage: deleteMessageRoutine,
+    setEditedMessage: setEditedMessageRoutine
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);
