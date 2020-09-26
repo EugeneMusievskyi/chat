@@ -1,6 +1,11 @@
 import {call, put, takeEvery, takeLatest} from "@redux-saga/core/effects";
 import * as messageService from "../../services/messageService";
-import {addMessageRoutine, deleteMessageRoutine, editMessageRoutine, loadMessagesRoutine} from "./routines";
+import {
+    addMessageRoutine,
+    deleteMessageRoutine,
+    editMessageRoutine,
+    loadMessagesRoutine
+} from "./routines";
 
 
 export function* loadMessages() {
@@ -14,7 +19,7 @@ export function* loadMessages() {
 
 export function* addMessage(action) {
     try {
-        const newMessage = yield call(messageService.saveMessage, action.message);
+        const newMessage = yield call(messageService.saveMessage, action.payload);
         yield put(loadMessagesRoutine.success(newMessage));
     } catch (e) {
         console.log(e);

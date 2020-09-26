@@ -5,6 +5,14 @@ import MessageInput from "../../components/MessageInput";
 import {connect} from "react-redux";
 import EditedMessage from "../../components/EditedMessage";
 import {loadAllUsersRoutine} from "../../sagas/users/routines";
+import {useEffect} from "react";
+import {
+    addMessageRoutine,
+    deleteMessageRoutine,
+    editMessageRoutine,
+    loadMessagesRoutine
+} from "../../sagas/chat/routines";
+import styles from "./styles.module.sass";
 
 const Chat = ({
          history,
@@ -17,6 +25,9 @@ const Chat = ({
          deleteMessage,
          setEditedMessage
 }) => {
+        useEffect(() => {
+            loadMessages();
+        }, [loadMessages]);
 
         const handleAddMessage = (messageText) => {
             addMessage(messageText);
@@ -47,12 +58,8 @@ const Chat = ({
             }
         };
 
-        if (!messages) {
-            loadMessages();
-        }
-
         return (
-            <div className="chat" onKeyDown={handleKeyPress}>
+            <div className={styles.chat} onKeyDown={handleKeyPress}>
               {/*<Button color="green" className="switch-users" onClick={handleSwitchUsers}>Users</Button>*/}
               <Header messages={messages} />
               <MessageList messages={messages} setEditedMessage={handleSetEditedMessage}
@@ -73,7 +80,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    loadAllUsers: loadAllUsersRoutine
+    loadAllUsers: loadAllUsersRoutine,
+    loadMessages: loadMessagesRoutine,
+    addMessage: addMessageRoutine,
+    editMessage: editMessageRoutine,
+    deleteMessage: deleteMessageRoutine
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

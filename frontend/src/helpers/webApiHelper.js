@@ -1,10 +1,7 @@
 import * as queryString from 'query-string';
-import {env} from "../env";
-
-const domain = `http://${env.backendHost}:${env.backendPort}`;
 
 function getFetchUrl(args) {
-  return domain + args.endpoint + (args.query ? `?${queryString.stringify(args.query)}` : '');
+  return args.endpoint + (args.query ? `?${queryString.stringify(args.query)}` : '');
 }
 
 function getFetchArgs(args) {
@@ -13,7 +10,7 @@ function getFetchArgs(args) {
     headers['Content-Type'] = 'application/json';
     headers.Accept = 'application/json';
   }
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("CHAT_TOKEN");
   if (token && !args.skipAuthorization) {
     headers.Authorization = `Bearer ${token}`;
   }

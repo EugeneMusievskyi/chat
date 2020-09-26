@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Segment} from 'semantic-ui-react'
 
-const UserSegment = ({ user }) => {
+const UserForm = ({ user }) => {
     return (
         <Segment>
             <div className="userForm">
@@ -17,4 +17,4 @@ const UserSegment = ({ user }) => {
     )
 };
 
-export default UserSegment;
+export default UserForm;

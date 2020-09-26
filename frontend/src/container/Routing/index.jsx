@@ -6,7 +6,7 @@ import LoginForm from "../LoginForm";
 import PrivateRoute from "../PrivateRoute";
 import Chat from "../Chat";
 import {connect} from "react-redux";
-import {loadUserRoutine} from "../../sagas/auth/routines";
+import {loadCurrentUserRoutine} from "../../sagas/auth/routines";
 import {useAuth} from "../../helpers/authorization.helper";
 
 const Routing = ({ loadUser }) => {
@@ -35,14 +35,8 @@ const Routing = ({ loadUser }) => {
     )
 };
 
-const mapStateToProps = (state) => {
-    return {
-        user: state.user.user
-    }
-};
-
 const mapDispatchToProps = {
-    loadUser: loadUserRoutine
+    loadUser: loadCurrentUserRoutine
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Routing);
+export default connect(null, mapDispatchToProps)(Routing);

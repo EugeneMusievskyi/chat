@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./styles.module.sass"
 
 class MessageInput extends React.Component {
     constructor(props) {
@@ -14,13 +15,13 @@ class MessageInput extends React.Component {
         if (!this.state.body)
             return;
 
-        this.props.addMessage(this.state.body);
+        this.props.addMessage({ body: this.state.body});
         this.setState({...this.state, body: ""});
     }
 
     render() {
         return (
-            <div id="inputMessage" className="ui form">
+            <div className={`ui form ${styles.inputMessage}`}>
                 <div className="field">
                     <textarea rows="6" placeholder="Write your message..." value={this.state.body}
                               onChange={(ev) => this.handleChangeBody(ev)} />

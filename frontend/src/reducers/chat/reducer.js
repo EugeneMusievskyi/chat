@@ -7,10 +7,10 @@ import {
 
 const chatReducer = (state = {}, action) => {
     switch (action.type) {
-        case loadMessagesRoutine.TRIGGER: {
+        case loadMessagesRoutine.SUCCESS: {
             return {
                 ...state,
-                messages: action.messages
+                messages: action.payload
             }
         }
         case editMessageRoutine.TRIGGER: {
@@ -28,7 +28,7 @@ const chatReducer = (state = {}, action) => {
         case setEditedMessageRoutine.TRIGGER: {
             return {
                 ...state,
-                editedMessage: action.message
+                editedMessage: action.payload
             }
         }
         default:

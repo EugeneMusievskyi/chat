@@ -1,17 +1,16 @@
 import React, {useState} from "react";
 import {Form} from "semantic-ui-react";
 import {connect} from "react-redux";
-import {editMessageRoutine} from "../sagas/chat/routines";
+import {editMessageRoutine} from "../../sagas/chat/routines";
+import { useHistory } from "react-router-dom";
+import styles from "./styles.module.sass"
 
-const EditedMessage = ({ match, history, messages, editMessage }) => {
-    const id = match.params.id.substring(1);
-    const filteredMessages = messages.filter(mes => mes.id === id);
-    const editedMessage = filteredMessages[0];
-
+const EditedMessage = ({ editedMessage, editMessage }) => {
     const [body, setBody] = useState(editedMessage.text);
+    const history = useHistory();
 
     const handleEditMessage = () => {
-        editedMessage.text = body;
+        editedMessage.body = body;
         editMessage(editedMessage);
         history.push("/");
     };
@@ -21,8 +20,8 @@ const EditedMessage = ({ match, history, messages, editMessage }) => {
     };
 
     return (
-        <Form className="editMessage">
-            <div className="header">Edit message</div>
+        <Form className={styles.editMessage}>
+            <div className={styles.header}>Edit message</div>
                 <div className="content">
                     <div id="inputMessage" className="ui form">
                         <div className="field">
@@ -41,7 +40,7 @@ const EditedMessage = ({ match, history, messages, editMessage }) => {
 
 const mapStateToProps = state => {
     return {
-        messages: state.chat.messages
+        editedMessage: state.chat.editedMessage
     }
 };
 

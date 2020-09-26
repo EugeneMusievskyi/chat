@@ -2,7 +2,7 @@ import callWebApi from "../helpers/webApiHelper";
 
 export const getAllMessages = async () => {
     const response = await callWebApi({
-        endpoint: '/',
+        endpoint: '/api/messages',
         type: 'GET'
     });
 
@@ -11,7 +11,7 @@ export const getAllMessages = async () => {
 
 export const getMessage = async (id) => {
     const response = await callWebApi({
-        endpoint: `/message/${id}`,
+        endpoint: `api/messages/${id}`,
         type: 'GET'
     });
 
@@ -20,7 +20,7 @@ export const getMessage = async (id) => {
 
 export const saveMessage = async request => {
     const response = await callWebApi({
-        endpoint: '/',
+        endpoint: 'api/messages',
         type: 'POST',
         request
     });
@@ -30,7 +30,7 @@ export const saveMessage = async request => {
 
 export const updateMessage = async request => {
     await callWebApi({
-        endpoint: '/edit',
+        endpoint: 'api/messages/edit',
         type: 'PUT',
         request
     });
@@ -38,7 +38,7 @@ export const updateMessage = async request => {
 
 export const deleteMessage = async id => {
     await callWebApi({
-        endpoint: `/${id}`,
+        endpoint: `/api/messages/${id}`,
         type: 'DELETE'
     })
 };

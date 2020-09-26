@@ -15,7 +15,8 @@ export function* loadUserById(action) {
 
 export function* login(action) {
     try {
-        const {user, token} = yield call(authService.login, action.request);
+        const userLogin = action.payload;
+        const {user, token} = yield call(authService.login, userLogin);
         setToken(token);
         yield put(loginRoutine.success(user));
     } catch (e) {

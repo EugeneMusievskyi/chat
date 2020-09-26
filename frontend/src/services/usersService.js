@@ -2,7 +2,7 @@ import callWebApi from "../helpers/webApiHelper";
 
 export const getAllUsers = async () => {
     const response = await callWebApi({
-        endpoint: '/user/all',
+        endpoint: '/api/user/all',
         type: 'GET'
     });
 
@@ -20,7 +20,7 @@ export const getUserById = async (id) => {
 
 export const createUser = async (request) => {
     const response = await callWebApi({
-        endpoint: '/user',
+        endpoint: '/api/user',
         type: 'POST',
         request
     });

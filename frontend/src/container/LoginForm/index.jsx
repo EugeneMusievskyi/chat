@@ -14,7 +14,9 @@ const LoginForm = ({ login }) => {
         if (!username || !password)
             return;
 
-        login({ username, password });
+        const userLogin = { username, password };
+
+        login(userLogin);
         history.push("/");
     };
 
