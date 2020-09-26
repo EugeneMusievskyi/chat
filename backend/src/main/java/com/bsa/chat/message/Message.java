@@ -19,5 +19,5 @@ public class Message extends BaseEntity {
     private User user;
 
     @Column(name = "body")
-    private String text;
+    private String body;
 }

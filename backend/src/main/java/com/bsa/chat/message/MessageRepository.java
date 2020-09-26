@@ -11,6 +11,6 @@ import java.util.UUID;
 public interface MessageRepository extends JpaRepository<Message, UUID> {
     @Transactional
     @Modifying
-    @Query("UPDATE Message m SET m.text = :newText WHERE m.id = :id")
+    @Query("UPDATE Message m SET m.body = :newText WHERE m.id = :id")
     void updateMessage(@Param("id") UUID id, @Param("newText") String newText);
 }

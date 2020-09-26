@@ -31,7 +31,7 @@ public class MessageService {
                 .orElse(null);
 
         var message = Message.builder()
-                .text(messageCreationDto.getText())
+                .body(messageCreationDto.getBody())
                 .user(user)
                 .build();
 
@@ -41,7 +41,7 @@ public class MessageService {
     }
 
     public void update(MessageDto messageDto) {
-         messageRepository.updateMessage(messageDto.getId(), messageDto.getText());
+         messageRepository.updateMessage(messageDto.getId(), messageDto.getBody());
     }
 
     public void delete(UUID id) {

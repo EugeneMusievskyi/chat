@@ -14,7 +14,7 @@ public class MessageDto {
     private final UUID userId;
     private final String avatar;
     private final String user;
-    private final String text;
+    private final String body;
     private final Date createdAt;
     private final Date editedAt;
 
@@ -26,7 +26,7 @@ public class MessageDto {
 
         var messageDtoBuilder = MessageDto.builder()
                 .id(message.getId())
-                .text(message.getText())
+                .body(message.getBody())
                 .createdAt(message.getCreatedAt())
                 .editedAt(message.getEditedAt());
 

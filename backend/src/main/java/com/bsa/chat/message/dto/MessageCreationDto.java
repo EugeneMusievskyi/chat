@@ -11,5 +11,5 @@ import java.util.UUID;
 @Builder
 public class MessageCreationDto {
     private UUID userId;
-    private final String text;
+    private final String body;
 }
