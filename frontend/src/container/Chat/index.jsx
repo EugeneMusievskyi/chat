@@ -6,23 +6,27 @@ import {connect} from "react-redux";
 import {loadAllUsersRoutine} from "../../sagas/users/routines";
 import {useEffect} from "react";
 import {
-    addMessageRoutine,
+    addMessageRoutine, addMessageToStateRoutine, deleteMessageFromStateRoutine,
     deleteMessageRoutine,
-    editMessageRoutine,
+    editMessageRoutine, editMessageStateRoutine,
     loadMessagesRoutine, setEditedMessageRoutine
 } from "../../sagas/chat/routines";
 import styles from "./styles.module.sass";
 import {useState} from "react";
+import {useStomp} from "../../helpers/websocket.helper";
 
 const Chat = ({
-         user,
-         messages,
-         editedMessage,
-         loadMessages,
-         addMessage,
-         editMessage,
-         deleteMessage,
-         setEditedMessage
+     user,
+     messages,
+     editedMessage,
+     loadMessages,
+     addMessage,
+     addMessageToState,
+     editMessage,
+     editMessageState,
+     deleteMessage,
+     deleteMessageFromState,
+     setEditedMessage
 }) => {
         useEffect(() => {
             loadMessages();
@@ -31,6 +35,10 @@ const Chat = ({
         useEffect(() => {
             setBody(editedMessage ? editedMessage.body : "")
         }, [editedMessage]);
+
+        useStomp("addMessage", addMessageToState);
+        useStomp("updateMessage", editMessageState);
+        useStomp("deleteMessage", deleteMessageFromState);
 
         const [body, setBody] = useState("");
 
@@ -62,8 +70,13 @@ const Chat = ({
         return (
             <div className={styles.chat} onKeyDown={handleKeyPress}>
               <Header messages={messages} />
-              <MessageList messages={messages} setEditedMessage={setEditedMessage}
-                           deleteMessage={deleteMessage} keyDown={handleKeyPress} />
+              <MessageList
+                  user={user}
+                  messages={messages}
+                  setEditedMessage={setEditedMessage}
+                  deleteMessage={deleteMessage}
+                  keyDown={handleKeyPress}
+              />
               <MessageInput
                   value={body}
                   onChange={e => setBody(e.target.value)}
@@ -89,8 +102,11 @@ const mapDispatchToProps = {
     loadAllUsers: loadAllUsersRoutine,
     loadMessages: loadMessagesRoutine,
     addMessage: addMessageRoutine,
+    addMessageToState: addMessageToStateRoutine,
     editMessage: editMessageRoutine,
+    editMessageState: editMessageStateRoutine,
     deleteMessage: deleteMessageRoutine,
+    deleteMessageFromState: deleteMessageFromStateRoutine,
     setEditedMessage: setEditedMessageRoutine
 };
 
