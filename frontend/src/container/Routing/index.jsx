@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import Loader from "../../components/Loader";
 import {Redirect, Route, Switch} from 'react-router-dom';
 import PublicRoute from "../PublicRoute";
 import LoginForm from "../LoginForm";
@@ -8,9 +7,9 @@ import Chat from "../Chat";
 import {connect} from "react-redux";
 import {loadCurrentUserRoutine} from "../../sagas/auth/routines";
 import {useAuth} from "../../helpers/authorization.helper";
+import {Loader} from "semantic-ui-react";
 
-const Routing = ({ loadUser }) => {
-    const isLoading = false;
+const Routing = ({ loadUser, isLoading }) => {
     const isLogged = useAuth();
 
     useEffect(() => {
@@ -19,7 +18,7 @@ const Routing = ({ loadUser }) => {
 
     return (
         isLoading
-            ? <Loader />
+            ? <Loader active={isLoading}/>
             : (
                <div className="fill">
                  <Switch>
@@ -35,8 +34,14 @@ const Routing = ({ loadUser }) => {
     )
 };
 
+const mapStateToProps = state => {
+    return {
+        isLoading: state.profile.isLoading
+    }
+};
+
 const mapDispatchToProps = {
     loadUser: loadCurrentUserRoutine
 };
 
-export default connect(null, mapDispatchToProps)(Routing);
+export default connect(mapStateToProps, mapDispatchToProps)(Routing);

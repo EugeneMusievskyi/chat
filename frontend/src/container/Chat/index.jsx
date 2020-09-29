@@ -14,6 +14,7 @@ import {
 import styles from "./styles.module.sass";
 import {useState} from "react";
 import {useStomp} from "../../helpers/websocket.helper";
+import {useRef} from "react";
 
 const Chat = ({
      user,
@@ -26,7 +27,8 @@ const Chat = ({
      editMessageState,
      deleteMessage,
      deleteMessageFromState,
-     setEditedMessage
+     setEditedMessage,
+     isMessagesLoading
 }) => {
         useEffect(() => {
             loadMessages();
@@ -42,6 +44,29 @@ const Chat = ({
 
         const [body, setBody] = useState("");
 
+        const messagesEndRef = useRef();
+        const scrollToBottom = (behavior) => {
+            messagesEndRef.current.scrollIntoView({ behavior })
+        };
+
+        const [isMessagesLoaded, setMessagesLoaded] = useState(false);
+        // const [isSubmit, setSubmit] = useState(false);
+        // const [messagesLength, setMessagesLength] = useState(0);
+        useEffect(() => {
+            if (messages && !isMessagesLoaded) {
+                scrollToBottom();
+                setMessagesLoaded(true);
+            }
+        }, [messagesEndRef, messages, isMessagesLoaded]);
+
+        /*useEffect(() => {
+            if (isSubmit && messages.length > messagesLength) {
+                scrollToBottom();
+                setSubmit(false);
+                setMessagesLength(messages.length);
+            }
+        }, [isSubmit, messages, messagesLength] );*/
+
         const handleSubmit = () => {
             if (!body)
                 return;
@@ -49,6 +74,7 @@ const Chat = ({
             const submit = editedMessage ? editMessage : addMessage;
             submit({ body });
             setBody("");
+            scrollToBottom("smooth")
         };
 
         const handleKeyPress = (e) => {
@@ -75,7 +101,8 @@ const Chat = ({
                   messages={messages}
                   setEditedMessage={setEditedMessage}
                   deleteMessage={deleteMessage}
-                  keyDown={handleKeyPress}
+                  messagesEndRef={messagesEndRef}
+                  isLoading={isMessagesLoading}
               />
               <MessageInput
                   value={body}
@@ -93,6 +120,7 @@ const Chat = ({
 const mapStateToProps = state => {
     return {
         messages: state.chat.messages,
+        isMessagesLoading: state.chat.isLoading,
         user: state.profile.user,
         editedMessage: state.chat.editedMessage
     }

@@ -7,10 +7,23 @@ import {
 
 const chatReducer = (state = {}, action) => {
     switch (action.type) {
+        case loadMessagesRoutine.TRIGGER: {
+            return {
+                ...state,
+                isLoading: true
+            }
+        }
         case loadMessagesRoutine.SUCCESS: {
             return {
                 ...state,
-                messages: action.payload
+                messages: action.payload,
+                isLoading: false
+            }
+        }
+        case loadMessagesRoutine.FAILURE: {
+            return {
+                ...state,
+                isLoading: false
             }
         }
         case addMessageRoutine.SUCCESS:

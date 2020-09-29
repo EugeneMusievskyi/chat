@@ -3,14 +3,16 @@ import Message from "../Message";
 import moment from "moment";
 import DateDivider from "../DateDivider";
 import styles from "./styles.module.sass";
-import {CommentGroup} from "semantic-ui-react";
+import {CommentGroup, Loader} from "semantic-ui-react";
 
 const MessageList = (
     {
         user,
         messages,
         setEditedMessage,
-        deleteMessage
+        deleteMessage,
+        messagesEndRef,
+        isLoading
     }) => {
     const mapMessages = (messages) => {
         let previousDate;
@@ -46,9 +48,8 @@ const MessageList = (
         <>
             <CommentGroup size="large" className={styles.messageList}>
                 {mapMessages(messages)}
-                <div ref={messagesEndRef => {
-                    // this.messagesEndRef = messagesEndRef
-                }} />
+                <div ref={messagesEndRef}/>
+                <Loader active={isLoading} />
             </CommentGroup>
         </>
     );
