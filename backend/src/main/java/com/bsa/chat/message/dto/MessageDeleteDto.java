@@ -1,4 +1,4 @@
-package com.bsa.chat.message;
+package com.bsa.chat.message.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
