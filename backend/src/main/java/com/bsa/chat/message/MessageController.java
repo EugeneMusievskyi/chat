@@ -48,13 +48,13 @@ public class MessageController {
 
     @PutMapping("/edit")
     public MessageDto update(@RequestBody MessageUpdateDto messageDto) throws MessageNotFoundException {
-        var updateMessage = messageService.update(messageDto);
-        notificationService.sendMessageToAllUsers("updateMessage", updateMessage);
-        return updateMessage;
+        var updatedMessage = messageService.update(messageDto);
+        notificationService.sendMessageToAllUsers("updateMessage", updatedMessage);
+        return updatedMessage;
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") UUID id) {
+    public void delete(@PathVariable("id") UUID id) throws MessageNotFoundException {
         messageService.delete(id);
         notificationService.sendMessageToAllUsers("deleteMessage", new MessageDeleteDto(id));
     }

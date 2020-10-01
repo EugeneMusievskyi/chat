@@ -1,13 +1,10 @@
 package com.bsa.chat.user;
 
-import com.bsa.chat.user.dto.UserCreationDto;
 import com.bsa.chat.user.dto.UserDetailsDto;
-import com.bsa.chat.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 import static com.bsa.chat.auth.TokenService.getUserId;
@@ -17,11 +14,6 @@ import static com.bsa.chat.auth.TokenService.getUserId;
 public class UserController {
     @Autowired
     private UserService userService;
-
-    @GetMapping("/all")
-    public List<UserDto> getUsers() {
-        return userService.getUsers();
-    }
 
     @GetMapping("/{id}")
     public UserDetailsDto getUser(@PathVariable("id") UUID id) {
@@ -34,15 +26,5 @@ public class UserController {
     public UserDetailsDto getUser() {
         var userDto = userService.getUserById(getUserId());
         return new UserDetailsDto(userDto.getId(), userDto.getUsername());
-    }
-
-    @PostMapping("/edit")
-    public UserDto updateUser(UserDto userDto) {
-        return userService.update(userDto);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable UUID id) {
-        userService.delete(id);
     }
 }

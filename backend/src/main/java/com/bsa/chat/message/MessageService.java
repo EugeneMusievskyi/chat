@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.bsa.chat.auth.TokenService.getUserId;
+
 @Service
 public class MessageService {
     @Autowired
@@ -47,14 +49,23 @@ public class MessageService {
                 .findById(messageUpdateDto.getId())
                 .orElseThrow(MessageNotFoundException::new);
 
-        message.setBody(messageUpdateDto.getBody());
-        var updatedMessage = messageRepository.save(message);
+        if (message.getUser().getId().equals(getUserId())) {
+            message.setBody(messageUpdateDto.getBody());
+            var updatedMessage = messageRepository.save(message);
 
-        return MessageDto.fromEntity(updatedMessage);
+            return MessageDto.fromEntity(updatedMessage);
+        }
+
+        throw new MessageNotFoundException("Access denied");
     }
 
-    public void delete(UUID id) {
-        messageRepository.deleteById(id);
+    public void delete(UUID id) throws MessageNotFoundException {
+        var message = messageRepository.findById(id).orElseThrow(MessageNotFoundException::new);
+        if (message.getId().equals(getUserId())) {
+            messageRepository.deleteById(id);
+        }
+
+        throw new MessageNotFoundException("Access denied");
     }
 
     public MessageDto getById(UUID id) {

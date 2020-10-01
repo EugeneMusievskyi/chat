@@ -1,7 +1,6 @@
 package com.bsa.chat.user;
 
 import com.bsa.chat.auth.model.AuthUser;
-import com.bsa.chat.user.dto.UserCreationDto;
 import com.bsa.chat.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,13 +26,6 @@ public class UserService implements UserDetailsService {
             "https://i.imgur.com/wg5lf5M.jpg"
     };
 
-    public List<UserDto> getUsers() {
-        return userRepository.findAll()
-                .stream()
-                .map(UserDto::fromEntity)
-                .collect(Collectors.toList());
-    }
-
     public UserDto getUserById(UUID id) {
         return userRepository
                 .findById(id)
@@ -41,28 +33,10 @@ public class UserService implements UserDetailsService {
                 .orElse(null);
     }
 
-    public UserDto save(UserCreationDto userCreationDto) {
-        var user = userCreationDto.toEntity();
-        user.setAvatarLink(getRandomAvatar());
-        var savedUser = userRepository.save(user);
-
-        return UserDto.fromEntity(savedUser);
-    }
-
     public UserDto save(User user) {
         user.setAvatarLink(getRandomAvatar());
         var savedUser = userRepository.save(user);
         return UserDto.fromEntity(savedUser);
-    }
-
-    public UserDto update(UserDto userDto) {
-        var user = userDto.toEntity();
-        var updatedUser = userRepository.save(user);
-        return UserDto.fromEntity(updatedUser);
-    }
-
-    public void delete(UUID id) {
-        userRepository.deleteById(id);
     }
 
     @Override
