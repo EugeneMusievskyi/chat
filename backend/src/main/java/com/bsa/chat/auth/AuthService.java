@@ -3,6 +3,7 @@ package com.bsa.chat.auth;
 import com.bsa.chat.auth.dto.AuthUserDTO;
 import com.bsa.chat.auth.dto.UserLoginDTO;
 import com.bsa.chat.auth.dto.UserRegisterDto;
+import com.bsa.chat.auth.exceptions.AuthException;
 import com.bsa.chat.auth.model.AuthUser;
 import com.bsa.chat.user.User;
 import com.bsa.chat.user.UserService;
@@ -26,21 +27,26 @@ public class AuthService {
     @Autowired
     private UserService userDetailsService;
 
-    public AuthUserDTO register(UserRegisterDto userDto) throws Exception {
+    public AuthUserDTO register(UserRegisterDto userDto) throws AuthException {
         User user = userDto.toEntity();
         var loginDTO = new UserLoginDTO(user.getUsername(), user.getPassword());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userDetailsService.save(user);
+
+        try {
+            userDetailsService.save(user);
+        } catch (Exception ex) {
+            throw new AuthException("User with this username already exist");
+        }
         return login(loginDTO);
     }
 
-    public AuthUserDTO login(UserLoginDTO user) throws Exception {
+    public AuthUserDTO login(UserLoginDTO user) throws AuthException {
         Authentication auth;
         try {
             auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
         }
         catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
+            throw new AuthException("Incorrect username or password");
         }
 
         var currentUser = (AuthUser)auth.getPrincipal();
