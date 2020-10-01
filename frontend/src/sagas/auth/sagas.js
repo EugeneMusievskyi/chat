@@ -16,20 +16,23 @@ export function* loadUserById(action) {
 export function* login(action) {
     try {
         const userLogin = action.payload;
-        const {user, token} = yield call(authService.login, userLogin);
+        const response = yield call(authService.login, userLogin);
+        const {user, token} = response.data;
         setToken(token);
         yield put(loginRoutine.success(user));
     } catch (e) {
-        console.log(e);
+        yield put(loginRoutine.failure(e.error));
     }
 }
 
 export function* register(action) {
     try {
-        const user = yield call(usersService.createUser, action.user);
+        const response = yield call(authService.createUser, action.payload);
+        const {user, token} = response.data;
+        setToken(token);
         yield put(registerRoutine.success(user))
     } catch (e) {
-        console.log(e);
+        yield put (registerRoutine.failure(e.error));
     }
 }
 

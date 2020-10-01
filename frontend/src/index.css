@@ -23,6 +23,7 @@ code {
   height: 100%;
   display: flex;
   justify-content: center;
+  /*align-items: center;*/
   background-color: rgba(100, 100, 255, .15);
 }
 

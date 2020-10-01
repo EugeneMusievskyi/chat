@@ -36,11 +36,6 @@ public class UserController {
         return new UserDetailsDto(userDto.getId(), userDto.getUsername());
     }
 
-    @PostMapping
-    public UserDto createUser(@RequestBody UserCreationDto userCreationDto) {
-        return userService.save(userCreationDto);
-    }
-
     @PostMapping("/edit")
     public UserDto updateUser(UserDto userDto) {
         return userService.update(userDto);

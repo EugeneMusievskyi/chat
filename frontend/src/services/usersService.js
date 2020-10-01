@@ -17,13 +17,3 @@ export const getUserById = async (id) => {
 
     return response.json();
 };
-
-export const createUser = async (request) => {
-    const response = await callWebApi({
-        endpoint: '/api/user',
-        type: 'POST',
-        request
-    });
-
-    return response.json();
-};

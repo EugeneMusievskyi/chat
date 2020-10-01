@@ -10,7 +10,6 @@
     "@testing-library/user-event": "^7.2.1",
     "history": "latest",
     "http-proxy-middleware": "latest",
-    "js-cookie": "^2.2.1",
     "node-sass": "^4.14.1",
     "prop-types": "latest",
     "query-string": "latest",
@@ -24,7 +23,9 @@
     "redux-saga-routines": "latest",
     "serve": "^11.3.2",
     "uuid": "latest",
-    "websocket": "^1.0.32"
+    "websocket": "^1.0.32",
+    "formik": "latest",
+    "yup": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

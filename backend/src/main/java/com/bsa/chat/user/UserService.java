@@ -18,6 +18,15 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    private String[] defaultAvatars = {
+            "https://i.imgur.com/Sw9s6NQ.jpg",
+            "https://i.imgur.com/4KzOrvb.jpg",
+            "https://i.imgur.com/zbjmZ59.jpg",
+            "https://i.imgur.com/dwGap5V.jpg",
+            "https://i.imgur.com/nFQGBc1.jpg",
+            "https://i.imgur.com/wg5lf5M.jpg"
+    };
+
     public List<UserDto> getUsers() {
         return userRepository.findAll()
                 .stream()
@@ -34,12 +43,14 @@ public class UserService implements UserDetailsService {
 
     public UserDto save(UserCreationDto userCreationDto) {
         var user = userCreationDto.toEntity();
+        user.setAvatarLink(getRandomAvatar());
         var savedUser = userRepository.save(user);
 
         return UserDto.fromEntity(savedUser);
     }
 
     public UserDto save(User user) {
+        user.setAvatarLink(getRandomAvatar());
         var savedUser = userRepository.save(user);
         return UserDto.fromEntity(savedUser);
     }
@@ -59,5 +70,9 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username)
                 .map(user -> new AuthUser(user.getId(), user.getUsername(), user.getPassword()))
                 .orElseThrow(() -> new UsernameNotFoundException(username));
+    }
+
+    private String getRandomAvatar() {
+        return defaultAvatars[(int) (Math.random() * defaultAvatars.length)];
     }
 }
