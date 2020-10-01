@@ -1,24 +1,31 @@
 import React from "react";
 import {connect} from "react-redux";
 import styles from "./styles.module.sass"
+import {Button} from "semantic-ui-react";
+import {logout} from "../../helpers/authorization.helper";
+import { useHistory } from "react-router-dom";
 
-const Header = ({messages}) => {
+const Header = ({ info }) => {
+    const history = useHistory();
+    const handleLogout = () => {
+        logout();
+        history.push("/login");
+    };
+
     return (
-        !messages ?
-            null
-            : (
-                <div className={`ui block ${styles.header}`}>
-                     <h3>My Chat</h3>
-                     <h3>23 participants</h3>
-                     <h3>{messages?.length} messages</h3>
-                </div>
-            )
+        <div className={`ui block ${styles.header} ${!info && styles.flexEnd}`}>
+            {info?.userCount &&
+            <h3>{info.userCount} users</h3>}
+            {info?.messageCount &&
+            <h3> {info.messageCount} messages</h3>}
+            <Button className={styles.button} onClick={handleLogout} negative>Log out</Button>
+        </div>
     );
 };
 
 const mapStateToProps = (state) => {
     return {
-        messages: state.chat.messages
+        info: state.chat.info
     }
 };
 

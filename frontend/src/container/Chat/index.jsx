@@ -10,17 +10,19 @@ import {
     deleteMessageRoutine,
     editMessageRoutine, editMessageStateRoutine,
     loadMessagesRoutine, setEditedMessageRoutine
-} from "../../sagas/chat/routines";
+} from "../../sagas/messages/routines";
 import styles from "./styles.module.sass";
 import {useState} from "react";
 import {useStomp} from "../../helpers/websocket.helper";
 import {useRef} from "react";
+import {loadChatInfoRoutine} from "../../sagas/chatInfo/routines";
 
 const Chat = ({
      user,
      messages,
      editedMessage,
      loadMessages,
+     loadChatInfo,
      addMessage,
      addMessageToState,
      editMessage,
@@ -30,9 +32,8 @@ const Chat = ({
      setEditedMessage,
      isMessagesLoading
 }) => {
-        useEffect(() => {
-            loadMessages();
-        }, [loadMessages]);
+        useEffect(loadMessages, [loadMessages]);
+        useEffect(loadChatInfo, [loadChatInfo]);
 
         useEffect(() => {
             setBody(editedMessage ? editedMessage.body : "")
@@ -129,6 +130,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     loadAllUsers: loadAllUsersRoutine,
     loadMessages: loadMessagesRoutine,
+    loadChatInfo: loadChatInfoRoutine,
     addMessage: addMessageRoutine,
     addMessageToState: addMessageToStateRoutine,
     editMessage: editMessageRoutine,

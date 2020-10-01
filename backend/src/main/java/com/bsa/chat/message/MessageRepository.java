@@ -14,4 +14,6 @@ public interface MessageRepository extends JpaRepository<Message, UUID> {
     @Modifying
     @Query("UPDATE Message m SET m.body = :newText WHERE m.id = :id")
     void updateMessage(@Param("id") UUID id, @Param("newText") String newText);
+
+    int countAllBy();
 }

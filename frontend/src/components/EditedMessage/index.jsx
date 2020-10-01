@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Form} from "semantic-ui-react";
 import {connect} from "react-redux";
-import {editMessageRoutine} from "../../sagas/chat/routines";
+import {editMessageRoutine} from "../../sagas/messages/routines";
 import { useHistory } from "react-router-dom";
 import styles from "./styles.module.sass"
 

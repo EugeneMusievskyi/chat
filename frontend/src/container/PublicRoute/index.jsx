@@ -8,7 +8,7 @@ const PublicRoute = ({ component: Component, isAuthorized, ...rest }) => {
     return (
         <Route
             {...rest} render={props => (isLogged
-            ? <Redirect to={{pathname: '/', state: {from: props.location}}} />
+            ? <Redirect to="/" />
             : <Component {...props} />)} />
     );
 };
