@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Redirect, Route, Switch} from 'react-router-dom';
-import PublicRoute from "../PublicRoute";
-import PrivateRoute from "../PrivateRoute";
+import PublicRoute from "../../components/PublicRoute";
+import PrivateRoute from "../../components/PrivateRoute";
 import Chat from "../Chat";
 import {connect} from "react-redux";
 import {loadCurrentUserRoutine} from "../../sagas/auth/routines";
