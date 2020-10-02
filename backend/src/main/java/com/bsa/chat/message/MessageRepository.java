@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,4 +17,6 @@ public interface MessageRepository extends JpaRepository<Message, UUID> {
     void updateMessage(@Param("id") UUID id, @Param("newText") String newText);
 
     int countAllBy();
+
+    List<Message> findAllByOrderByCreatedAt();
 }

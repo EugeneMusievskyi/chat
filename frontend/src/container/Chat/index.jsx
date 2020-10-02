@@ -81,6 +81,7 @@ const Chat = ({
             const submit = editedMessage ? editMessage : addMessage;
             submit({ body, scrollToBottom: () => scrollToBottom("smooth") });
             setBody("");
+            setEditedMessage(null);
         };
 
         const handleKeyPress = (e) => {

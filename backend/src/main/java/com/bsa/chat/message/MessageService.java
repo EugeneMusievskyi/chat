@@ -23,7 +23,7 @@ public class MessageService {
     private UserRepository userRepository;
 
     public List<MessageDto> getMessages() {
-        return messageRepository.findAll()
+        return messageRepository.findAllByOrderByCreatedAt()
                 .stream()
                 .map(MessageDto::fromEntity)
                 .collect(Collectors.toList());
@@ -49,23 +49,23 @@ public class MessageService {
                 .findById(messageUpdateDto.getId())
                 .orElseThrow(MessageNotFoundException::new);
 
-        if (!message.getUser().getId().equals(getUserId())) {
+        if (message.getUser().getId().equals(getUserId())) {
             message.setBody(messageUpdateDto.getBody());
             var updatedMessage = messageRepository.save(message);
 
             return MessageDto.fromEntity(updatedMessage);
+        } else {
+            throw new MessageNotFoundException("Access denied");
         }
-
-        throw new MessageNotFoundException("Access denied");
     }
 
     public void delete(UUID id) throws MessageNotFoundException {
         var message = messageRepository.findById(id).orElseThrow(MessageNotFoundException::new);
-        if (!message.getId().equals(getUserId())) {
+        if (message.getUser().getId().equals(getUserId())) {
             messageRepository.deleteById(id);
+        } else {
+            throw new MessageNotFoundException("Access denied");
         }
-
-        throw new MessageNotFoundException("Access denied");
     }
 
     public MessageDto getById(UUID id) {
