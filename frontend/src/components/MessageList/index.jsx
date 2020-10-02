@@ -16,6 +16,7 @@ const MessageList = (
     }) => {
     const mapMessages = (messages) => {
         let previousDate;
+        let key = 0;
 
         return messages?.map(message => {
             let currentDate = moment(message.createdAt).format();
@@ -25,17 +26,19 @@ const MessageList = (
                 previousDate = currentDate;
             }
 
-            const mappedMessage = user?.id === message.userId ?
-                <Message
+            const mappedMessage = user?.id === message.userId
+                ? <Message
                     message={message}
                     onEditMessage={setEditedMessage}
                     onDeleteMessage={deleteMessage}
                     currentUser
                 />
-                : <Message message={message} />;
+                : <Message
+                    message={message}
+                />;
 
             return (
-                <div>
+                <div key={++key}>
                     {dividerLine}
                     {mappedMessage}
                 </div>

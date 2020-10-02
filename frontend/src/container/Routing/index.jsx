@@ -19,10 +19,9 @@ const Routing = ({ loadUser }) => {
     return (
         <div className="fill">
             <Switch>
+                <PrivateRoute exact path="/" component={Chat} />
                 <PublicRoute exact path="/login" component={LoginForm} />
                 <PublicRoute exact path="/registration" component={RegistrationForm} />
-                <PrivateRoute exact path="/" component={Chat} />
-                {/*<PrivateRoute path="/users" component={Users} />*/}
                 <Route path="/*">
                     <Redirect to="/"/>
                 </Route>

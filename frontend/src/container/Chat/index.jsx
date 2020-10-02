@@ -15,7 +15,7 @@ import styles from "./styles.module.sass";
 import {useState} from "react";
 import {useStomp} from "../../helpers/websocket.helper";
 import {useRef} from "react";
-import {loadChatInfoRoutine} from "../../sagas/chatInfo/routines";
+import {loadChatInfoRoutine, setChatInfoRoutine} from "../../sagas/chatInfo/routines";
 
 const Chat = ({
      user,
@@ -30,11 +30,16 @@ const Chat = ({
      deleteMessage,
      deleteMessageFromState,
      setEditedMessage,
-     isMessagesLoading
+     isMessagesLoading,
+     info,
+     setChatInfo
 }) => {
-        useEffect(loadMessages, [loadMessages]);
-        useEffect(loadChatInfo, [loadChatInfo]);
-
+        useEffect(() => {
+            loadMessages()
+        }, [loadMessages]);
+        useEffect(() => {
+            loadChatInfo();
+        }, [loadChatInfo]);
         useEffect(() => {
             setBody(editedMessage ? editedMessage.body : "")
         }, [editedMessage]);
@@ -42,6 +47,7 @@ const Chat = ({
         useStomp("addMessage", addMessageToState);
         useStomp("updateMessage", editMessageState);
         useStomp("deleteMessage", deleteMessageFromState);
+        useStomp("info", setChatInfo);
 
         const [body, setBody] = useState("");
 
@@ -73,9 +79,8 @@ const Chat = ({
                 return;
 
             const submit = editedMessage ? editMessage : addMessage;
-            submit({ body });
+            submit({ body, scrollToBottom: () => scrollToBottom("smooth") });
             setBody("");
-            scrollToBottom("smooth")
         };
 
         const handleKeyPress = (e) => {
@@ -96,7 +101,10 @@ const Chat = ({
 
         return (
             <div className={styles.chat} onKeyDown={handleKeyPress}>
-              <Header messages={messages} />
+              <Header
+                  userCount={info?.userCount}
+                  messageCount={messages?.length}
+              />
               <MessageList
                   user={user}
                   messages={messages}
@@ -123,7 +131,8 @@ const mapStateToProps = state => {
         messages: state.chat.messages,
         isMessagesLoading: state.chat.isLoading,
         user: state.profile.user,
-        editedMessage: state.chat.editedMessage
+        editedMessage: state.chat.editedMessage,
+        info: state.chat.info
     }
 };
 
@@ -137,7 +146,8 @@ const mapDispatchToProps = {
     editMessageState: editMessageStateRoutine,
     deleteMessage: deleteMessageRoutine,
     deleteMessageFromState: deleteMessageFromStateRoutine,
-    setEditedMessage: setEditedMessageRoutine
+    setEditedMessage: setEditedMessageRoutine,
+    setChatInfo: setChatInfoRoutine
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

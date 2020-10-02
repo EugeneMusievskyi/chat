@@ -20,10 +20,12 @@ function* loadMessages() {
 
 function* addMessage(action) {
     try {
-        const newMessage = yield call(messageService.saveMessage, action.payload);
+        const { body, scrollToBottom } = action.payload;
+        const newMessage = yield call(messageService.saveMessage, { body });
         if (!isWsConnected()) {
             yield put(addMessageRoutine.success(newMessage));
         }
+        scrollToBottom();
     } catch (e) {
         console.log(e);
     }

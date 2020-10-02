@@ -19,8 +19,8 @@ const Message = ({ message, onEditMessage, onDeleteMessage, currentUser }) => {
                     {currentUser &&
                         <Dropdown className={styles.rightFloat} pointing="right" icon="ellipsis vertical">
                             <Dropdown.Menu>
-                                <Dropdown.Item icon="item edit" text="Edit" onClick={() => onEditMessage(message)} />
-                                <Dropdown.Item icon="item delete" text="Delete" onClick={() => onDeleteMessage(message)} />
+                                <Dropdown.Item icon="edit" text="Edit" onClick={() => onEditMessage(message)} />
+                                <Dropdown.Item icon="delete" text="Delete" onClick={() => onDeleteMessage(message)} />
                             </Dropdown.Menu>
                         </Dropdown>
                     }

@@ -49,7 +49,7 @@ public class MessageService {
                 .findById(messageUpdateDto.getId())
                 .orElseThrow(MessageNotFoundException::new);
 
-        if (message.getUser().getId().equals(getUserId())) {
+        if (!message.getUser().getId().equals(getUserId())) {
             message.setBody(messageUpdateDto.getBody());
             var updatedMessage = messageRepository.save(message);
 
@@ -61,7 +61,7 @@ public class MessageService {
 
     public void delete(UUID id) throws MessageNotFoundException {
         var message = messageRepository.findById(id).orElseThrow(MessageNotFoundException::new);
-        if (message.getId().equals(getUserId())) {
+        if (!message.getId().equals(getUserId())) {
             messageRepository.deleteById(id);
         }
 
